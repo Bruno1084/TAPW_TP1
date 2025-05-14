@@ -9,7 +9,10 @@ use CodeIgniter\Router\RouteCollection;
 // Menu Principal - Routes
 $routes->get('/', 'MenuPrincipal::index');
 $routes->get('/mostrar', 'MenuPrincipal::getMostrar'); // GetMostrar
+
 $routes->get('/alta', 'MenuPrincipal::getAlta'); // GetAlta
+$routes->post('/alta', 'MenuPrincipal::postAmoMascota'); // PostAmoMascota
+
 $routes->get('/baja', 'MenuPrincipal::getBaja'); // GetBaja
 $routes->get('/modificacion', 'MenuPrincipal::getModificacion'); // GetModificacion
 
