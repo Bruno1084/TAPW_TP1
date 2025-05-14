@@ -9,7 +9,6 @@ class AmoController extends BaseController
     public function getAll()
     {
         $amoModel = new AmoModel();
-
         $data['amos'] = $amoModel->findAll();
 
         return view('amos/index', $data);

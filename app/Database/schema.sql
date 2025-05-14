@@ -2,6 +2,8 @@ create schema mi_veterinaria_db;
 use mi_veterinaria_db;
 
 -- Esquema de base de datos
+-- Se considera que amos y veterinarios no comparten datos sufucientes para justificar una relación de herencia.
+
 create table mascotas(
 	nroRegistro int not null auto_increment,
 	nombre varchar(100) not null,

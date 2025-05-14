@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" href="/css/index.css">
     <title>Mi Veterinaria</title>
 </head>
 
@@ -12,11 +12,20 @@
     <h1>Menu Principal</h1>
 
     <main>
-        <h4>Opciones</h4>
+        <h3>Menu Opciones</h3>
         <div>
-            <a href="/mascotas">Mascotas</a>
-            <a href="/amos">Amos</a>
-            <a href="/veterinarios">Veterinarios</a>
+            <div>
+                <a href="/mostrar">Mostrar</a>
+            </div>
+            <div>
+                <a href="/alta">Alta</a>
+            </div>
+            <div>
+                <a href="/baja">Baja</a>
+            </div>
+            <div>
+                <a href="/modificacion">Modificacion</a>
+            </div>
         </div>
     </main>
 
