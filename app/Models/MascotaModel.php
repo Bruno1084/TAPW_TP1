@@ -17,4 +17,18 @@ class MascotaModel extends Model
         'fechaAlta',
         'fechaDefuncion',
     ];
+
+    /*
+    Retorna todos los amos de una mascota.
+    */
+    public function getAmosFromMascota(int $idMascota)
+    {
+        return $this->db->table('amo_mascota am')
+            ->select('a.*, am.fechaInicio, am.fechaFinal, am.motivoFin')
+            ->join('amos a', 'am.idAmo = a.id')
+            ->where('am.idMascota', $idMascota)
+            ->orderBy('am.fechaInicio', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
 }

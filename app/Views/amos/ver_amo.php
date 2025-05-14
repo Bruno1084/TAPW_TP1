@@ -14,21 +14,53 @@
 
     <?php if (!isset($mascotas) || !is_array($mascotas) || count($mascotas) === 0): ?>
         <div>
-            <p>No hay mascota registradas.</p>
+            <p>No hay mascotas registradas.</p>
         </div>
     <?php else: ?>
-        <!-- Imprimir lista de mascotas -->
-        <?php foreach ($mascotas as $mascota): ?>
-            <div class="card">
-                <p><strong>NroRegistro:</strong> <?= htmlspecialchars($mascota['nroRegistro']) ?></p>
-                <p><strong>Nombre:</strong> <?= htmlspecialchars($mascota['nombre']) ?></p>
-                <p><strong>Especie:</strong> <?= htmlspecialchars($mascota['especie']) ?></p>
-                <p><strong>Raza:</strong> <?= htmlspecialchars($mascota['raza']) ?></p>
-                <p><strong>Edad:</strong> <?= htmlspecialchars($mascota['edad']) ?></p>
-                <p><strong>Fecha de alta:</strong> <?= htmlspecialchars($mascota['fechaAlta']) ?></p>
-                <p><strong>Fecha de defunción:</strong> <?= htmlspecialchars($mascota['fechaDefuncion']) ?></p>
-            </div>
-        <?php endforeach; ?>
+
+        <?php
+        $mascotasActuales = array_filter($mascotas, fn($m) => is_null($m['fechaFinal']));
+        $mascotasAnteriores = array_filter($mascotas, fn($m) => !is_null($m['fechaFinal']));
+        ?>
+
+        <!-- Mascotas actuales -->
+        <section>
+            <h2>Mascotas actuales</h2>
+            <?php if (empty($mascotasActuales)): ?>
+                <p>No hay mascotas actuales.</p>
+            <?php else: ?>
+                <?php foreach ($mascotasActuales as $mascota): ?>
+                    <div class="card">
+                        <p><strong>Nombre:</strong> <?= htmlspecialchars($mascota['nombre']) ?></p>
+                        <p><strong>Especie:</strong> <?= htmlspecialchars($mascota['especie']) ?></p>
+                        <p><strong>Raza:</strong> <?= htmlspecialchars($mascota['raza']) ?></p>
+                        <p><strong>Edad:</strong> <?= htmlspecialchars($mascota['edad']) ?></p>
+                        <p><strong>Fecha de alta:</strong> <?= htmlspecialchars($mascota['fechaAlta']) ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </section>
+
+        <!-- Mascotas anteriores -->
+        <section>
+            <h2>Mascotas anteriores</h2>
+            <?php if (empty($mascotasAnteriores)): ?>
+                <p>No hay mascotas anteriores.</p>
+            <?php else: ?>
+                <?php foreach ($mascotasAnteriores as $mascota): ?>
+                    <div class="card">
+                        <p><strong>Nombre:</strong> <?= htmlspecialchars($mascota['nombre']) ?></p>
+                        <p><strong>Especie:</strong> <?= htmlspecialchars($mascota['especie']) ?></p>
+                        <p><strong>Raza:</strong> <?= htmlspecialchars($mascota['raza']) ?></p>
+                        <p><strong>Edad:</strong> <?= htmlspecialchars($mascota['edad']) ?></p>
+                        <p><strong>Fecha de alta:</strong> <?= htmlspecialchars($mascota['fechaAlta']) ?></p>
+                        <p><strong>Fecha de finalización:</strong> <?= htmlspecialchars($mascota['fechaFinal']) ?></p>
+                        <p><strong>Motivo fin:</strong> <?= htmlspecialchars($mascota['motivoFin']) ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </section>
+
     <?php endif; ?>
 </body>
 

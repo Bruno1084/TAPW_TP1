@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\AmoModel;
 use App\Models\MascotaModel;
 
 class MascotaController extends BaseController
@@ -16,16 +15,11 @@ class MascotaController extends BaseController
         return view('mascotas/index', $data);
     }
 
-    public function getOne($nroRegistro)
+    public function getAmosfromMascota($idMascota)
     {
         $mascotaModel = new MascotaModel();
-        $data['mascota'] = $mascotaModel->find($nroRegistro);
-
-        if (!$data['mascota']) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Mascota con ID $nroRegistro no encontrado.");
-        }
+        $data['amos'] = $mascotaModel->getAmosfromMascota($idMascota);
 
         return view('mascotas/ver_mascota', $data);
     }
-    
 }

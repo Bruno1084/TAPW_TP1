@@ -19,7 +19,7 @@
     <?php else: ?>
         <!-- Imprimir lista de mascotas -->
         <?php foreach ($mascotas as $mascota): ?>
-            <a href="/mascota/<?= $mascota['nroRegistro'] ?>" class="card">
+            <a href="/mascotas/<?= $mascota['nroRegistro'] ?>" class="card">
                 <p><strong>NroRegistro:</strong> <?= htmlspecialchars($mascota['nroRegistro']) ?></p>
                 <p><strong>Nombre:</strong> <?= htmlspecialchars($mascota['nombre']) ?></p>
                 <p><strong>Especie:</strong> <?= htmlspecialchars($mascota['especie']) ?></p>

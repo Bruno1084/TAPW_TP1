@@ -8,7 +8,6 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 // Menu Principal - Routes
-$routes->get('/mascota', 'MascotaController::index');  
 $routes->get('/veterinario', 'VeterinarioController::index');
 
 // Amo - Routes
@@ -17,4 +16,4 @@ $routes->get('/amos/(:num)', 'AmoController::getMascotasFromAmo/$1'); // GetMasc
 
 // Mascota - Routes
 $routes->get('/mascotas', 'MascotaController::getAll'); // GetAll
-$routes->get('/mascotas/(:num)', 'MascotaController::getOne/$1'); // GetOne
+$routes->get('/mascotas/(:num)', 'MascotaController::getAmosFromMascota/$1'); // GetAmosFromMascota
