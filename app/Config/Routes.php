@@ -39,6 +39,15 @@ $routes->post('/baja/mascota', 'MenuPrincipal::postMascotaBaja'); // PostMascota
 $routes->get('/baja/veterinario', 'MenuPrincipal::getVeterinarioBaja');
 $routes->post('/baja/veterinario/(:num)', 'MenuPrincipal::postVeterinarioBaja');
 
+// Modificacion - Routes
+$routes->post('/modificacion/amo_mascota', 'MenuPrincipal::postAmoMascotaModificaicon');
+
+$routes->get('/modificacion/mascota', 'MenuPrincipal::getMascotaModificacion');
+$routes->post('/modificacion/mascota/(:num)', 'MenuPrincipal::postMascotaModificacion/$1');
+
+$routes->get('/modicicacion/amo', 'MenuPrincipal::getAmoModificaicon');
+
+
 
 // Amo - Routes
 $routes->get('/amos', 'AmoController::getAll'); // GetAll
