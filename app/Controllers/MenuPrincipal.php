@@ -218,7 +218,7 @@ class MenuPrincipal extends BaseController
             'fechaEgreso' => $veterinario->getFechaEgreso()
         ]);
 
-        return view('/alta/mascota');
+        return view('/alta/veterinario');
     }
 
     public function postAmoMascotaBaja()
