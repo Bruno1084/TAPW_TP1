@@ -221,7 +221,6 @@ class MenuPrincipal extends BaseController
         return view('/alta/mascota');
     }
 
-
     public function postAmoMascotaBaja()
     {
         $amo_mascotaModel = new Amo_MascotaModel();
@@ -271,13 +270,38 @@ class MenuPrincipal extends BaseController
             ->where('fechaFinal', null, false)
             ->update();
 
-        return redirect()->to('/baja')->with('success', 'Adopción dada de baja correctamente.');
+        return view('/baja');
     }
-
 
     public function postAmoBaja($idAmo) {}
 
-    public function postMascotaBaja($idMascota) {}
+    public function postMascotaBaja()
+    {
+        $mascotaModel = new MascotaModel();
+
+        $mascota = new Mascota(
+            $this->request->getPost('idMascota'),
+            $this->request->getPost('nombreMascota'),
+            $this->request->getPost('especie'),
+            $this->request->getPost('raza'),
+            (int)$this->request->getPost('edad'),
+            $this->request->getPost('fechaAltaMascota'),
+            $this->request->getPost('fechaDefuncion')
+        );
+
+        // Verificar si existe la mascota
+        $mascotaExistente = $mascotaModel->find($this->request->getPost('idMascota'));
+        if (!$mascotaExistente) {
+            return redirect()->back()->with('error', 'Mascota no encontrada.');
+        }
+
+        $mascotaModel
+            ->set('fechaDefuncion', $mascota->getFechaDefuncion())
+            ->where('nroRegistro', $this->request->getPost('idMascota'))
+            ->update();
+
+        return view('baja/mascota');
+    }
 
     public function postVeterinarioBaja($idVeterinario) {}
 }

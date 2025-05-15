@@ -34,7 +34,7 @@ $routes->get('/baja/amo', 'MenuPrincipal::getAmoBaja');
 $routes->post('/baja/amo/(:num)', 'MenuPrincipal::postAmoBaja/$1');
 
 $routes->get('/baja/mascota', 'MenuPrincipal::getMascotaBaja');
-$routes->post('/baja/mascota/(:num)', 'MenuPrincipal::postMascotaBaja/$1');
+$routes->post('/baja/mascota', 'MenuPrincipal::postMascotaBaja'); // PostMascotaBaja
 
 $routes->get('/baja/veterinario', 'MenuPrincipal::getVeterinarioBaja');
 $routes->post('/baja/veterinario/(:num)', 'MenuPrincipal::postVeterinarioBaja');
