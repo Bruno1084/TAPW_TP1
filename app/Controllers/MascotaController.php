@@ -22,4 +22,18 @@ class MascotaController extends BaseController
 
         return view('mascotas/ver_mascota', $data);
     }
+
+    public function getOne($id)
+    {
+        $mascotaModel = new MascotaModel();
+        $mascota = $mascotaModel->find($id);
+
+        if (!$mascota) {
+            return $this->response->setStatusCode(404)->setJSON([
+                'error' => "Mascota con ID $id no encontrado."
+            ]);
+        }
+
+        return $this->response->setJSON($mascota);
+    }
 }

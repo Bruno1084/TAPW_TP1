@@ -16,14 +16,16 @@ class AmoController extends BaseController
 
     public function getOne($id)
     {
-        $amoModel = new AmoModel();
-        $data['amo'] = $amoModel->find($id);
+        $amoModel = new \App\Models\AmoModel();
+        $amo = $amoModel->find($id);
 
-        if (!$data['amo']) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Amo con ID $id no encontrado.");
+        if (!$amo) {
+            return $this->response->setStatusCode(404)->setJSON([
+                'error' => "Amo con ID $id no encontrado."
+            ]);
         }
 
-        return view('amos/ver_amo', $data);
+        return $this->response->setJSON($amo);
     }
 
     public function getMascotasFromAmo($idAmo)

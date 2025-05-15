@@ -17,4 +17,18 @@ class VeterinarioModel extends Model
         'fechaIngreso',
         'fechaEgreso',
     ];
+
+    /*
+    Retorna todos las mascotas de un veterinario.
+    */
+    public function getMascotasFromVeterinario(int $idVeterinario)
+    {
+        return $this->db->table('veterinario_mascota vm')
+            ->select('m.*, vm.fechaAtencion, vm.motivoAtencion')
+            ->join('mascotas m', 'vm.idMascota = m.nroRegistro')
+            ->where('vm.idVeterinario', $idVeterinario)
+            ->orderBy('vm.fechaAtencion', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
 }

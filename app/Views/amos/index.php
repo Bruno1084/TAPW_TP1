@@ -19,7 +19,7 @@
     <?php else: ?>
         <!-- Imprimir lista de amos -->
         <?php foreach ($amos as $amo): ?>
-            <a href="/amos/<?= $amo['id'] ?>" class="card">
+            <a href="/amos/mascotas/<?= $amo['id'] ?>" class="card">
                 <p><strong>Nombre:</strong> <?= htmlspecialchars($amo['nombre']) . " " . htmlspecialchars($amo['apellido']) ?></p>
                 <p><strong>Dirección:</strong> <?= htmlspecialchars($amo['direccion']) ?></p>
                 <p><strong>Teléfono:</strong> <?= htmlspecialchars($amo['telefono']) ?></p>

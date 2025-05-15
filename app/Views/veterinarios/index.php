@@ -19,7 +19,7 @@
     <?php else: ?>
         <!-- Imprimir lista de veterinarios -->
         <?php foreach ($veterinarios as $veterinario): ?>
-            <a href="/veterinarios/<?= $veterinario['id'] ?>" class="card">
+            <a href="/veterinarios/mascotas/<?= $veterinario['id'] ?>" class="card">
                 <p><strong>Nombre:</strong> <?= htmlspecialchars($veterinario['nombre']) . " " . htmlspecialchars($veterinario['apellido']) ?></p>
                 <p><strong>Especialidad:</strong> <?= htmlspecialchars($veterinario['especialidad']) ?></p>
                 <p><strong>Teléfono:</strong> <?= htmlspecialchars($veterinario['telefono']) ?></p>

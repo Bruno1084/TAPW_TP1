@@ -67,7 +67,7 @@ class MenuPrincipal extends BaseController
         return view('/baja/mascota');
     }
 
-    public function getVeterinario()
+    public function getVeterinarioBaja()
     {
         return view('/baja/veterinario');
     }
@@ -219,5 +219,22 @@ class MenuPrincipal extends BaseController
         ]);
 
         return view('/alta/mascota');
+    }
+
+
+    // Funciones Post Baja
+    public function postAmoBaja($idAmo)
+    {
+
+    }
+
+    public function postMascotaBaja($idMascota)
+    {
+
+    }
+
+    public function postVeterinarioBaja($idVeterinario)
+    {
+
     }
 }

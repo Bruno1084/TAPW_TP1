@@ -37,19 +37,22 @@ $routes->post('/baja/amo/(:num)', 'MenuPrincipal::postAmoBaja/$1');
 $routes->get('/baja/mascota', 'MenuPrincipal::getMascotaBaja');
 $routes->post('/baja/mascota/(:num)', 'MenuPrincipal::postMascotaBaja/$1');
 
-$routes->get('/baja/veterinario', 'MenuPrincipal::getVeterionarioBaja');
+$routes->get('/baja/veterinario', 'MenuPrincipal::getVeterinarioBaja');
 $routes->post('/baja/veterinario/(:num)', 'MenuPrincipal::postVeterinarioBaja');
 
 
 
 // Amo - Routes
 $routes->get('/amos', 'AmoController::getAll'); // GetAll
-$routes->get('/amos/(:num)', 'AmoController::getMascotasFromAmo/$1'); // GetMascotasFromAmo
+$routes->get('/amos/(:num)', 'AmoController::getOne/$1'); // GetOne
+$routes->get('/amos/mascotas/(:num)', 'AmoController::getMascotasFromAmo/$1'); // GetMascotasFromAmo
 
 // Mascota - Routes
 $routes->get('/mascotas', 'MascotaController::getAll'); // GetAll
-$routes->get('/mascotas/(:num)', 'MascotaController::getAmosFromMascota/$1'); // GetAmosFromMascota
+$routes->get('/mascotas/(:num)', 'MascotaController::getOne/$1'); // GetOne
+$routes->get('/mascotas/amos/(:num)', 'MascotaController::getAmosFromMascota/$1'); // GetAmosFromMascota
 
 // Veterinario - Routes
 $routes->get('/veterinarios', 'VeterinarioController::getAll'); // GetAll
-$routes->get('/veterinarios', 'VeterinarioController::getMascotasFromVeterinario'); // GetMascotasFromVeterinario
+$routes->get('/veterinarios/(:num)', 'VeterinarioController::getOne/$1'); // GetOne
+$routes->get('/veterinarios/mascotas/(:num)', 'VeterinarioController::getMascotasFromVeterinario/$1'); // GetMascotasFromVeterinario
