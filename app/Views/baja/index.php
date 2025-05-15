@@ -45,8 +45,9 @@
                 <!-- Datos del Amo -->
                 <div class="card">
                     <h5>Datos del Amo</h5>
+
                     <div>
-                        <select id="selectAmo">
+                        <select id="selectAmo" name="idAmo" required>
                             <option value="">-- Selecciona un amo --</option>
                             <?php foreach ($amos as $amo): ?>
                                 <option value="<?= $amo['id'] ?>">
@@ -81,8 +82,9 @@
                 <!-- Datos de la Mascota -->
                 <div class="card">
                     <h5>Datos de la Mascota</h5>
+
                     <div>
-                        <select id="selectMascota">
+                        <select id="selectMascota" name="idMascota" required>
                             <option value="">-- Selecciona una Mascota --</option>
                             <?php foreach ($mascotas as $mascota): ?>
                                 <option value="<?= $mascota['nroRegistro'] ?>">
@@ -113,6 +115,11 @@
                     </div>
                 </div>
 
+                <div class="card">
+                    <label for="motivoFin">Motivo de la baja:</label>
+                    <input type="text" id="motivoFin" name="motivoFin" required>
+                </div>
+
                 <button type="submit" class="btn">Registrar Baja</button>
             </form>
         </section>
@@ -122,6 +129,7 @@
         // Rellena los demás campos una vez seleccionado un Amo
         document.getElementById('selectAmo').addEventListener('change', (event) => {
             const idAmo = event.target.value;
+
             if (!idAmo) return;
 
             fetch(`/amos/${idAmo}`)
@@ -133,10 +141,38 @@
                     document.getElementById('telefono').value = data.telefono;
                     document.getElementById('fechaAltaAmo').value = data.fechaAlta?.split(' ')[0] ?? '';
                 })
-                .catch(err => console.error('Error: ', err));
+                .catch(err => console.error('Error al traer amo: ', err));
+
+
+            fetch(`/amos/mascotas/${idAmo}`)
+                .then(response => response.json())
+                .then(mascotas => {
+                    const selectMascota = document.getElementById('selectMascota');
+                    selectMascota.innerHTML = '<option value="">-- Selecciona una Mascota --</option>';
+
+                    if (!Array.isArray(mascotas)) {
+                        console.error("Respuesta inválida (esperaba array):", mascotas);
+                        return;
+                    }
+
+                    mascotas.forEach(mascota => {
+                        const option = document.createElement('option');
+                        option.value = mascota.nroRegistro;
+                        option.textContent = mascota.nombre;
+                        selectMascota.appendChild(option);
+                    });
+                })
+                .catch(err => console.error('Error al traer mascotas: ', err));
+
+            // Limpiar campos de mascota
+            document.getElementById('nombreMascota').value = '';
+            document.getElementById('especie').value = '';
+            document.getElementById('raza').value = '';
+            document.getElementById('edad').value = '';
+            document.getElementById('fechaAltaMascota').value = '';
         });
 
-        // Rellena los dem´s campos una vez seleccionado una Mascota
+        // Rellena los demás campos una vez seleccionada una Mascota
         document.getElementById('selectMascota').addEventListener('change', (event) => {
             const idMascota = event.target.value;
             if (!idMascota) return;
@@ -150,28 +186,7 @@
                     document.getElementById('edad').value = data.edad;
                     document.getElementById('fechaAltaMascota').value = data.fechaAlta?.split(' ')[0] ?? '';
                 })
-
-            fetch(`/mascotas/porAmo/${idAmo}`)
-                .then(response => response.json())
-                .then(mascotas => {
-                    const selectMascota = document.getElementById('selectMascota');
-                    selectMascota.innerHTML = '<option value="">-- Selecciona una Mascota --</option>';
-
-                    mascotas.forEach(mascota => {
-                        const option = document.createElement('option');
-                        option.value = mascota.nroRegistro;
-                        option.textContent = mascota.nombre;
-                        selectMascota.appendChild(option);
-                    });
-
-                    // Limpiar campos de mascota
-                    document.getElementById('nombreMascota').value = '';
-                    document.getElementById('especie').value = '';
-                    document.getElementById('raza').value = '';
-                    document.getElementById('edad').value = '';
-                    document.getElementById('fechaAltaMascota').value = '';
-                });
-
+                .catch(err => console.error('Error al traer mascota:', err));
         });
     </script>
 </body>

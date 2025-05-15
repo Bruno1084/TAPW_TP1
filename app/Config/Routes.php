@@ -28,8 +28,7 @@ $routes->post('/alta/veterinario', 'MenuPrincipal::postVeterinario'); // PostVet
 
 
 // Baja - Routes
-$routes->post('/baja/amo_mascota', 'MenuPrincipal::postAmoMascotaBaja'); // PostAmoMascota
-
+$routes->post('/baja/amo_mascota', 'MenuPrincipal::postAmoMascotaBaja'); // PostAmoMascotaBaja
 
 $routes->get('/baja/amo', 'MenuPrincipal::getAmoBaja');
 $routes->post('/baja/amo/(:num)', 'MenuPrincipal::postAmoBaja/$1');
@@ -39,7 +38,6 @@ $routes->post('/baja/mascota/(:num)', 'MenuPrincipal::postMascotaBaja/$1');
 
 $routes->get('/baja/veterinario', 'MenuPrincipal::getVeterinarioBaja');
 $routes->post('/baja/veterinario/(:num)', 'MenuPrincipal::postVeterinarioBaja');
-
 
 
 // Amo - Routes

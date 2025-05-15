@@ -222,19 +222,62 @@ class MenuPrincipal extends BaseController
     }
 
 
-    // Funciones Post Baja
-    public function postAmoBaja($idAmo)
+    public function postAmoMascotaBaja()
     {
+        $amo_mascotaModel = new Amo_MascotaModel();
 
+        $amo = new Amo(
+            $this->request->getPost('idAmo'),
+            $this->request->getPost('nombreAmo'),
+            $this->request->getPost('apellidoAmo'),
+            $this->request->getPost('direccion'),
+            $this->request->getPost('telefono'),
+            $this->request->getPost('fechaAltaAmo')
+        );
+
+        $mascota = new Mascota(
+            $this->request->getPost('idMascota'),
+            $this->request->getPost('nombreMascota'),
+            $this->request->getPost('especie'),
+            $this->request->getPost('raza'),
+            (int)$this->request->getPost('edad'),
+            $this->request->getPost('fechaAltaMascota'),
+            null
+        );
+
+        // Validar motivoFin
+        $motivoFin = strtolower($this->request->getPost('motivoFin'));
+        if ($motivoFin !== 'venta' && $motivoFin !== 'fallecimiento') {
+            return redirect()->back()->with('error', 'Motivo inválido. Solo se permite "venta" o "fallecimiento".');
+        }
+
+        // Verificar existencia de relación activa
+        $relacion = $amo_mascotaModel
+            ->where('idAmo', $amo->getId())
+            ->where('idMascota', $mascota->getNroRegistro())
+            ->where('fechaFinal', null, false)
+            ->first();
+
+        if (empty($relacion)) {
+            return redirect()->back()->with('error', 'No se encontró una relación activa para dar de baja.');
+        }
+
+        // Realizar la actualización
+        $amo_mascotaModel
+            ->set('fechaFinal', date('Y-m-d'))
+            ->set('motivoFin', $motivoFin)
+            ->where('idAmo', $amo->getId())
+            ->where('idMascota', $mascota->getNroRegistro())
+            ->where('fechaFinal', null, false)
+            ->update();
+
+        return redirect()->to('/baja')->with('success', 'Adopción dada de baja correctamente.');
     }
 
-    public function postMascotaBaja($idMascota)
-    {
 
-    }
+    public function postAmoBaja($idAmo) {}
 
-    public function postVeterinarioBaja($idVeterinario)
-    {
+    public function postMascotaBaja($idMascota) {}
 
-    }
+    public function postVeterinarioBaja($idVeterinario) {}
 }

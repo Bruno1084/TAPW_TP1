@@ -74,3 +74,8 @@ a {
 a:hover {
     background-color: #2980b9;
 }
+
+.card textarea {
+    width: 100%;
+    resize: vertical;
+}

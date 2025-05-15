@@ -31,9 +31,14 @@ class AmoController extends BaseController
     public function getMascotasFromAmo($idAmo)
     {
         $amoModel = new AmoModel();
+        $mascotas = $amoModel->getMascotasFromAmo($idAmo);
 
-        $data['mascotas'] = $amoModel->getMascotasFromAmo($idAmo);
+        if (!$mascotas) {
+            return $this->response->setStatusCode(404)->setJSON([
+                'error' => "Mascotas no encontradas para el usuario " . $idAmo
+            ]);
+        }
 
-        return view('amos/ver_amo', $data);
+        return $this->response->setJSON($mascotas);
     }
 }

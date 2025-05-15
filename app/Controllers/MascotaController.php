@@ -15,14 +15,6 @@ class MascotaController extends BaseController
         return view('mascotas/index', $data);
     }
 
-    public function getAmosfromMascota($idMascota)
-    {
-        $mascotaModel = new MascotaModel();
-        $data['amos'] = $mascotaModel->getAmosfromMascota($idMascota);
-
-        return view('mascotas/ver_mascota', $data);
-    }
-
     public function getOne($id)
     {
         $mascotaModel = new MascotaModel();
@@ -35,5 +27,13 @@ class MascotaController extends BaseController
         }
 
         return $this->response->setJSON($mascota);
+    }
+
+    public function getAmosfromMascota($idMascota)
+    {
+        $mascotaModel = new MascotaModel();
+        $data['amos'] = $mascotaModel->getAmosfromMascota($idMascota);
+
+        return view('mascotas/ver_mascota', $data);
     }
 }

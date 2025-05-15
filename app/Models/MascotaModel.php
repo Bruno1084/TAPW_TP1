@@ -11,7 +11,7 @@ class MascotaModel extends Model
     protected $returnType = 'array';
     protected $allowedFields = [
         'nombre',
-        'expecie',
+        'especie',
         'raza',
         'edad',
         'fechaAlta',
