@@ -41,4 +41,12 @@ class AmoController extends BaseController
 
         return $this->response->setJSON($mascotas);
     }
+
+    public function getMascotasFromAmoView($idAmo){
+        $amoModel = new AmoModel();
+        $data['mascotas'] = $amoModel->getMascotasFromAmo($idAmo);
+
+
+        return view('/amos/ver_amo', $data);
+    }
 }

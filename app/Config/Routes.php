@@ -43,7 +43,7 @@ $routes->post('/baja/veterinario/(:num)', 'MenuPrincipal::postVeterinarioBaja');
 // Amo - Routes
 $routes->get('/amos', 'AmoController::getAll'); // GetAll
 $routes->get('/amos/(:num)', 'AmoController::getOne/$1'); // GetOne
-$routes->get('/amos/mascotas/(:num)', 'AmoController::getMascotasFromAmo/$1'); // GetMascotasFromAmo
+$routes->get('/amos/mascotas/(:num)', 'AmoController::getMascotasFromAmoView/$1'); // GetMascotasFromAmo
 
 // Mascota - Routes
 $routes->get('/mascotas', 'MascotaController::getAll'); // GetAll
