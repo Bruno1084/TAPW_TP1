@@ -30,7 +30,7 @@ class MenuPrincipal extends BaseController
 
     public function getBaja()
     {
-        return view('/baja');
+        return view('/baja/index');
     }
 
     public function getModificacion()
@@ -40,24 +40,42 @@ class MenuPrincipal extends BaseController
 
 
     // Funciones Get Alta
-    public function getAmo()
+    public function getAmoAlta()
     {
         return view('/alta/amo');
     }
 
-    public function getMascota()
+    public function getMascotaAlta()
     {
         return view('/alta/mascota');
     }
 
-    public function getVeterinario()
+    public function getVeterinarioAlta()
     {
         return view('/alta/veterinario');
     }
 
 
-    // Funciones Post
-    public function postAmoMascota()
+    // Funciones Get Baja
+    public function getAmoBaja()
+    {
+        return view('/baja/amo');
+    }
+
+    public function getMascotaBaja()
+    {
+        return view('/baja/mascota');
+    }
+
+    public function getVeterinario()
+    {
+        return view('/baja/veterinario');
+    }
+
+
+
+    // Funciones Post Alta
+    public function postAmoMascotaAlta()
     {
         $amoModel = new AmoModel();
         $mascotaModel = new MascotaModel();

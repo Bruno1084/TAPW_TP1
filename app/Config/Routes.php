@@ -15,16 +15,31 @@ $routes->get('/modificacion', 'MenuPrincipal::getModificacion'); // GetModificac
 
 
 // Alta - Routes
-$routes->post('/alta/amo_mascota', 'MenuPrincipal::postAmoMascota'); // PostAmoMascota
+$routes->post('/alta/amo_mascota', 'MenuPrincipal::postAmoMascotaAlta'); // PostAmoMascota
 
-$routes->get('/alta/amo', 'MenuPrincipal::getAmo'); // GetAmo
+$routes->get('/alta/amo', 'MenuPrincipal::getAmoAlta'); // GetAmo
 $routes->post('/alta/amo', 'MenuPrincipal::postAmo'); // PostAmo
 
-$routes->get('/alta/mascota', 'MenuPrincipal::getMascota'); // GetMascota
+$routes->get('/alta/mascota', 'MenuPrincipal::getMascotaAlta'); // GetMascota
 $routes->post('/alta/mascota', 'MenuPrincipal::postMascota'); // PostMascota
 
-$routes->get('/alta/veterinario', 'MenuPrincipal::getVeterinario'); // GetVeterinario
+$routes->get('/alta/veterinario', 'MenuPrincipal::getVeterinarioAlta'); // GetVeterinario
 $routes->post('/alta/veterinario', 'MenuPrincipal::postVeterinario'); // PostVeterinario
+
+
+// Baja - Routes
+$routes->post('/baja/amo_mascota', 'MenuPrincipal::postAmoMascotaBaja'); // PostAmoMascota
+
+
+$routes->get('/baja/amo', 'MenuPrincipal::getAmoBaja');
+$routes->post('/baja/amo/(:num)', 'MenuPrincipal::postAmoBaja/$1');
+
+$routes->get('/baja/mascota', 'MenuPrincipal::getMascotaBaja');
+$routes->post('/baja/mascota/(:num)', 'MenuPrincipal::postMascotaBaja/$1');
+
+$routes->get('/baja/veterinario', 'MenuPrincipal::getVeterionarioBaja');
+$routes->post('/baja/veterinario/(:num)', 'MenuPrincipal::postVeterinarioBaja');
+
 
 
 // Amo - Routes
