@@ -13,6 +13,7 @@
 
     <main>
         <h3>Menu Opciones</h3>
+        
         <div>
             <div>
                 <a href="/mostrar">Mostrar</a>

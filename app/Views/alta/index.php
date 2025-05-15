@@ -24,7 +24,7 @@
         <section>
             <h4>Registrar adopción (Amo - Mascota)</h4>
 
-            <form method="post" action="/alta/adopcion">
+            <form method="post" action="/alta/amo_mascota">
                 <!-- Datos del Amo -->
                 <div class="card">
                     <h5>Datos del Amo</h5>

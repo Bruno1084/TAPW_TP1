@@ -66,7 +66,7 @@ class Veterinario
 
     public function setId(int $id): void
     {
-        if ($id <= 0) {
+        if ($id < 0) {
             throw new InvalidArgumentException("ID inválido");
         }
         $this->id = $id;

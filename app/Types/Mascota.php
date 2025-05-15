@@ -66,7 +66,7 @@ class Mascota
 
     public function setNroRegistro(int $nroRegistro): void
     {
-        if ($nroRegistro <= 0) {
+        if ($nroRegistro < 0) {
             throw new InvalidArgumentException("Número de registro inválido");
         }
         $this->nroRegistro = $nroRegistro;
