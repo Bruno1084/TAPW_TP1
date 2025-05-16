@@ -45,7 +45,7 @@ $routes->post('/modificacion/amo_mascota', 'MenuPrincipal::postAmoMascotaModific
 $routes->get('/modificacion/mascota', 'MenuPrincipal::getMascotaModificacion');
 $routes->post('/modificacion/mascota/(:num)', 'MenuPrincipal::postMascotaModificacion/$1');
 
-$routes->get('/modicicacion/amo', 'MenuPrincipal::getAmoModificaicon');
+$routes->get('/modicicacion/amo', 'MenuPrincipal::getAmoModificacion');
 
 
 

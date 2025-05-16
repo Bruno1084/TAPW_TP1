@@ -19,8 +19,8 @@
     <?php else: ?>
 
         <?php
-        $mascotasActuales = array_filter($mascotas, fn($m) => is_null($m['fechaFinal']));
-        $mascotasAnteriores = array_filter($mascotas, fn($m) => !is_null($m['fechaFinal']));
+        $mascotasActuales = array_filter($mascotas, fn($m) => is_null($m['fechaDefuncion']));
+        $mascotasAnteriores = array_filter($mascotas, fn($m) => !is_null($m['fechaDefuncion']));
         ?>
 
         <!-- Mascotas actuales -->
