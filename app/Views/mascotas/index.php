@@ -24,7 +24,7 @@
                 <p><strong>Nombre:</strong> <?= htmlspecialchars($mascota['nombre']) ?></p>
                 <p><strong>Especie:</strong> <?= htmlspecialchars($mascota['especie']) ?></p>
                 <p><strong>Raza:</strong> <?= htmlspecialchars($mascota['raza']) ?></p>
-                <p><strong>Edad:</strong> <?= htmlspecialchars($mascota['raza']) ?></p>
+                <p><strong>Edad:</strong> <?= htmlspecialchars($mascota['edad']) ?></p>
                 <p><strong>Fecha de alta:</strong> <?= htmlspecialchars($mascota['fechaAlta']) ?></p>
                 <p><strong>Fecha de defunción:</strong> <?= htmlspecialchars($mascota['fechaDefuncion']) ?></p>
             </a>
