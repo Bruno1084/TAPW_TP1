@@ -49,6 +49,7 @@ $routes->get('/modicicacion/amo', 'MenuPrincipal::getAmoModificacion');
 
 
 
+// Mostrar - Routes
 // Amo - Routes
 $routes->get('/amos', 'AmoController::getAll'); // GetAll
 $routes->get('/amos/(:num)', 'AmoController::getOne/$1'); // GetOne
