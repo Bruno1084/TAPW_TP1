@@ -109,7 +109,6 @@
                     </div>
                 <?php endif; ?>
             </div>
-            </div>
         </section>
     </main>
 </body>
