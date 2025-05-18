@@ -9,7 +9,6 @@ class MascotaController extends BaseController
     public function getAll()
     {
         $mascotaModel = new MascotaModel();
-
         $data['mascotas'] = $mascotaModel->findAll();
 
         return view('mascotas/index', $data);

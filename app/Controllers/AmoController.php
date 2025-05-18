@@ -17,15 +17,11 @@ class AmoController extends BaseController
     public function getOne($id)
     {
         $amoModel = new AmoModel();
-        $amo = $amoModel->find($id);
 
-        if (!$amo) {
-            return $this->response->setStatusCode(404)->setJSON([
-                'error' => "Amo con ID $id no encontrado."
-            ]);
-        }
+        $data['amo'] = $amoModel->find($id);
+        $data['mascotas'] = $amoModel->getMascotasFromAmo($id);
 
-        return $this->response->setJSON($amo);
+        return view('amos/ver_amo', $data);
     }
 
     public function getMascotasFromAmo($idAmo)
