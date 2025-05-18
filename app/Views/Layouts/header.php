@@ -4,7 +4,7 @@
     </div>
     <div>
         <nav>
-            <a href="#">Perfil</a>
+            <a href="#">Configuracion</a>
             <a href="#">Cerrar Sessión</a>
         </nav>
     </div>

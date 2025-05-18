@@ -9,31 +9,113 @@
     <title>Mi Veterinaria</title>
 </head>
 
+
 <body>
-    <h1>Lista de mascotas por veterinario</h1>
+    <?php
+    $mascotasActuales = array_filter($mascotas, fn($m) => is_null($m['fechaDefuncion']));
+    $mascotasAnteriores = array_filter($mascotas, fn($m) => !is_null($m['fechaDefuncion']));
+    ?>
+    <?= view('Layouts/header.php'); ?>
 
-    <?php if (!isset($mascotas) || !is_array($mascotas) || count($mascotas) === 0): ?>
-        <div>
-            <p>No hay mascotas registradas.</p>
-        </div>
-    <?php else: ?>
+    <main>
+        <?= view('Layouts/sideBar.php'); ?>
 
-        <!-- Mascotas actuales -->
         <section>
-            <h2>Mascotas atendidas</h2>
-            <?php foreach ($mascotas as $mascota): ?>
-                <div class="card">
-                    <p><strong>Nombre:</strong> <?= htmlspecialchars($mascota['nombre']) ?></p>
-                    <p><strong>Especie:</strong> <?= htmlspecialchars($mascota['especie']) ?></p>
-                    <p><strong>Raza:</strong> <?= htmlspecialchars($mascota['raza']) ?></p>
-                    <p><strong>Edad:</strong> <?= htmlspecialchars($mascota['edad']) ?></p>
-                    <p><strong>Fecha de atención:</strong> <?= htmlspecialchars($mascota['fechaAtencion']) ?></p>
-                    <p><strong>Motivo atención:</strong> <?= htmlspecialchars($mascota['motivoAtencion']) ?></p>
-                </div>
-            <?php endforeach; ?>
-        </section>
+            <h1>Detalles de Veterinario</h1>
 
-    <?php endif; ?>
+            <div class="options--container">
+                <div>
+                    <a href="#">Añadir Mascota</a>
+                </div>
+                <div>
+                    <a href="#">Editar</a>
+                </div>
+                <div>
+                    <a href="#">Eliminar</a>
+                </div>
+            </div>
+
+            <!-- Datos de la mascota actual -->
+            <div class="mascotaActualCard--container">
+                <h2>Mascotas actuales</h2>
+                <?php if (empty($mascotasActuales)): ?>
+                    <p>No hay mascotas actuales.</p>
+                <?php else: ?>
+                    <div class="table--container">
+                        <!-- Cabecera -->
+                        <div class="table--header">
+                            <div>Nro Registro</div>
+                            <div>Nombre</div>
+                            <div>Especie</div>
+                            <div>Raza</div>
+                            <div>Edad</div>
+                            <div>Fecha Alta</div>
+                            <div>Fecha Defunción</div>
+                            <div>Opciones</div>
+                        </div>
+
+                        <!-- Filas -->
+                        <?php foreach ($mascotasActuales as $mascota): ?>
+                            <div class="table--row" onclick="window.location='/mascotas/<?= $mascota['nroRegistro'] ?>'">
+                                <div><?= htmlspecialchars($mascota['nroRegistro']) ?></div>
+                                <div><?= htmlspecialchars($mascota['nombre']) ?></div>
+                                <div><?= htmlspecialchars($mascota['especie']) ?></div>
+                                <div><?= htmlspecialchars($mascota['raza']) ?></div>
+                                <div><?= htmlspecialchars($mascota['edad']) ?></div>
+                                <div><?= htmlspecialchars($mascota['fechaAlta']) ?></div>
+                                <div><?= htmlspecialchars($mascota['fechaDefuncion']) ?></div>
+                                <div class="row--actions" onclick="event.stopPropagation()">
+                                    <a href="/mascotas/editar/<?= $mascota['nroRegistro'] ?>">✏️</a>
+                                    <a href="/mascotas/eliminar/<?= $mascota['nroRegistro'] ?>">❌</a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+            </div>
+
+            <!-- Datos del amo anterior -->
+            <div class="mascotaHistorial--container">
+                <h2>Historial de mascotas</h2>
+                <?php if (empty($mascotasAnteriores)): ?>
+                    <p>No hay mascotas anteriores.</p>
+                <?php else: ?>
+                    <div class="table--container">
+                        <!-- Cabecera -->
+                        <div class="table--header">
+                            <div>Nro Registro</div>
+                            <div>Nombre</div>
+                            <div>Especie</div>
+                            <div>Raza</div>
+                            <div>Edad</div>
+                            <div>Fecha Alta</div>
+                            <div>Fecha Defunción</div>
+                            <div>Opciones</div>
+                        </div>
+
+                        <!-- Filas -->
+                    <?php foreach ($mascotasAnteriores as $mascota): ?>
+                        <div class="table--row" onclick="window.location='/mascotas/<?= $mascota['nroRegistro'] ?>'">
+                            <div><?= htmlspecialchars($mascota['nroRegistro']) ?></div>
+                            <div><?= htmlspecialchars($mascota['nombre']) ?></div>
+                            <div><?= htmlspecialchars($mascota['especie']) ?></div>
+                            <div><?= htmlspecialchars($mascota['raza']) ?></div>
+                            <div><?= htmlspecialchars($mascota['edad']) ?></div>
+                            <div><?= htmlspecialchars($mascota['fechaAlta']) ?></div>
+                            <div><?= htmlspecialchars($mascota['fechaDefuncion']) ?></div>
+                            <div class="row--actions" onclick="event.stopPropagation()">
+                                <a href="/mascotas/editar/<?= $mascota['nroRegistro'] ?>">✏️</a>
+                                <a href="/mascotas/eliminar/<?= $mascota['nroRegistro'] ?>">❌</a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+            </div>
+        </section>
+    </main>
 </body>
 
 </html>

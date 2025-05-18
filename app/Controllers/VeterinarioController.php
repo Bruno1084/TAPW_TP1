@@ -3,9 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\VeterinarioModel;
-use App\Types\Veterinario;
 
-class VeterinarioController extends BaseController {
+class VeterinarioController extends BaseController
+{
     public function getAll()
     {
         $veterinarioModel = new VeterinarioModel();
@@ -14,18 +14,14 @@ class VeterinarioController extends BaseController {
         return view('veterinarios/index', $data);
     }
 
-        public function getOne($id)
+    public function getOne($id)
     {
         $veterinarioModel = new VeterinarioModel();
-        $veterinario = $veterinarioModel->find($id);
 
-        if (!$veterinario) {
-            return $this->response->setStatusCode(404)->setJSON([
-                'error' => "Veterinario con ID $id no encontrado."
-            ]);
-        }
+        $data['veterinario'] = $veterinarioModel->find($id);
+        $data['mascotas'] = $veterinarioModel->getMascotasFromVeterinario($id);
 
-        return $this->response->setJSON($veterinario);
+        return view('veterinarios/ver_veterinario', $data);
     }
 
     public function getMascotasFromVeterinario($idVeterinario)
