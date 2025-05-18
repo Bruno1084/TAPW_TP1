@@ -16,7 +16,7 @@ class AmoController extends BaseController
 
     public function getOne($id)
     {
-        $amoModel = new \App\Models\AmoModel();
+        $amoModel = new AmoModel();
         $amo = $amoModel->find($id);
 
         if (!$amo) {

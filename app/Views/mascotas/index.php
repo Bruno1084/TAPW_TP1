@@ -16,6 +16,8 @@
         <?= view('Layouts/sideBar.php') ?>
 
         <section>
+            <h1>Mascotas</h1>
+
             <div class="options--container">
                 <div>
                     <a href="#">Añadir</a>
@@ -54,7 +56,7 @@
 
                     <!-- Filas -->
                     <?php foreach ($mascotas as $mascota): ?>
-                        <div class="table--row" onclick="window.location='/mascotas/amos/<?= $mascota['nroRegistro'] ?>'">
+                        <div class="table--row" onclick="window.location='/mascotas/<?= $mascota['nroRegistro'] ?>'">
                             <div><?= htmlspecialchars($mascota['nroRegistro']) ?></div>
                             <div><?= htmlspecialchars($mascota['nombre']) ?></div>
                             <div><?= htmlspecialchars($mascota['especie']) ?></div>
@@ -67,7 +69,6 @@
                                 <a href="/mascotas/eliminar/<?= $mascota['nroRegistro'] ?>">❌</a>
                             </div>
                         </div>
-
                     <?php endforeach; ?>
                 <?php endif; ?>
             </section>

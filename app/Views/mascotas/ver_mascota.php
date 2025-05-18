@@ -5,64 +5,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/amoCard.css">
+    <link rel="stylesheet" href="/css/mascotaCard.css">
     <title>Mi Veterinaria</title>
 </head>
 
+
 <body>
-    <h1>Lista de amos por mascota</h1>
+    <?php
+    $amoActuales = array_filter($amos, fn($a) => is_null($a['fechaFinal']));
+    $amosAnteriores = array_filter($amos, fn($a) => !is_null($a['fechaFinal']));
+    ?>
+    <?= view('Layouts/header.php'); ?>
 
-    <?php if (!isset($amos) || !is_array($amos) || count($amos) === 0): ?>
-        <div>
-            <p>No hay amos registrados.</p>
-        </div>
-    <?php else: ?>
+    <main>
+        <?= view('Layouts/sideBar.php'); ?>
 
-        <?php
-        $amoActuales = array_filter($amos, fn($a) => is_null($a['fechaFinal']));
-        $amosAnteriores = array_filter($amos, fn($a) => !is_null($a['fechaFinal']));
-        ?>
-
-        <!-- Amos actuales -->
         <section>
-            <h2>Amo actual</h2>
-            <?php if (empty($amoActuales)): ?>
-                <p>No hay amo actual.</p>
-            <?php else: ?>
-                <?php foreach ($amoActuales as $amo): ?>
-                    <div class="card">
-                        <p><strong>Nombre:</strong> <?= esc($amo['nombre']) . " " . esc($amo['apellido']) ?></p>
-                        <p><strong>Dirección:</strong> <?= esc($amo['direccion']) ?></p>
-                        <p><strong>Teléfono:</strong> <?= esc($amo['telefono']) ?></p>
-                        <p><strong>Fecha de alta:</strong> <?= esc($amo['fechaAlta']) ?></p>
-                        <p><strong>Fecha de inicio relación:</strong> <?= esc($amo['fechaInicio']) ?></p>
+            <h1>Detalles de Mascota</h1>
+
+            <div class="options--container">
+                <div>
+                    <a href="#">Añadir Amo</a>
+                </div>
+                <div>
+                    <a href="#">Editar</a>
+                </div>
+                <div>
+                    <a href="#">Eliminar</a>
+                </div>
+            </div>
+
+            <!-- Datos del amo actual -->
+            <div class="amoActualCard--container">
+                <h2>Amo actual</h2>
+                <?php if (empty($amoActuales)): ?>
+                    <p>No hay amo actual.</p>
+                <?php else: ?>
+                    <div class="table--container">
+                        <!-- Cabecera -->
+                        <div class="table--header">
+                            <div>ID</div>
+                            <div>Nombre</div>
+                            <div>Apellido</div>
+                            <div>Dirección</div>
+                            <div>Teléfono</div>
+                            <div>Fecha de Alta</div>
+                            <div>Opciones</div>
+                        </div>
+
+                        <!-- Filas -->
+                        <?php foreach ($amoActuales as $amo): ?>
+                            <div class="table--row" onclick="window.location='/amos/<?= $amo['id'] ?>'">
+                                <div><?= htmlspecialchars($amo['id']) ?></div>
+                                <div><?= htmlspecialchars($amo['nombre']) ?></div>
+                                <div><?= htmlspecialchars($amo['apellido']) ?></div>
+                                <div><?= htmlspecialchars($amo['direccion']) ?></div>
+                                <div><?= htmlspecialchars($amo['telefono']) ?></div>
+                                <div><?= htmlspecialchars($amo['fechaAlta']) ?></div>
+                                <div class="row--actions" onclick="event.stopPropagation()">
+                                    <a href="/amos/editar/<?= $amo['id'] ?>">✏️</a>
+                                    <a href="/amos/eliminar/<?= $amo['id'] ?>">❌</a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </section>
+                <?php endif; ?>
+            </div>
+            </div>
 
-        <!-- Amos anteriores -->
-        <section>
-            <h2>Amos anteriores</h2>
-            <?php if (empty($amosAnteriores)): ?>
-                <p>No hay amos anteriores.</p>
-            <?php else: ?>
-                <?php foreach ($amosAnteriores as $amo): ?>
-                    <div class="card">
-                        <p><strong>Nombre:</strong> <?= esc($amo['nombre']) . " " . esc($amo['apellido']) ?></p>
-                        <p><strong>Dirección:</strong> <?= esc($amo['direccion']) ?></p>
-                        <p><strong>Teléfono:</strong> <?= esc($amo['telefono']) ?></p>
-                        <p><strong>Fecha de alta:</strong> <?= esc($amo['fechaAlta']) ?></p>
-                        <p><strong>Fecha inicio relación:</strong> <?= esc($amo['fechaInicio']) ?></p>
-                        <p><strong>Fecha fin relación:</strong> <?= esc($amo['fechaFinal']) ?></p>
-                        <p><strong>Motivo fin:</strong> <?= esc($amo['motivoFin']) ?></p>
+            <!-- Datos del amo anterior -->
+            <div class="amoHistorial--container">
+                <h2>Historial de amos</h2>
+                <?php if (empty($amosAnteriores)): ?>
+                    <p>No hay amos anteriores.</p>
+                <?php else: ?>
+                    <div class="table--container">
+                        <!-- Cabecera -->
+                        <div class="table--header">
+                            <div>ID</div>
+                            <div>Nombre</div>
+                            <div>Apellido</div>
+                            <div>Dirección</div>
+                            <div>Teléfono</div>
+                            <div>Fecha de Alta</div>
+                            <div>Opciones</div>
+                        </div>
+
+                        <!-- Filas -->
+                        <?php foreach ($amosAnteriores as $amo): ?>
+                            <div class="table--row" onclick="window.location='/amos/<?= $amo['id'] ?>'">
+                                <div><?= htmlspecialchars($amo['id']) ?></div>
+                                <div><?= htmlspecialchars($amo['nombre']) ?></div>
+                                <div><?= htmlspecialchars($amo['apellido']) ?></div>
+                                <div><?= htmlspecialchars($amo['direccion']) ?></div>
+                                <div><?= htmlspecialchars($amo['telefono']) ?></div>
+                                <div><?= htmlspecialchars($amo['fechaAlta']) ?></div>
+                                <div class="row--actions" onclick="event.stopPropagation()">
+                                    <a href="/amos/editar/<?= $amo['id'] ?>">✏️</a>
+                                    <a href="/amos/eliminar/<?= $amo['id'] ?>">❌</a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                <?php endif; ?>
+            </div>
+            </div>
         </section>
-
-    <?php endif; ?>
-
+    </main>
 </body>
 
 </html>

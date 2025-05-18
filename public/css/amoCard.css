@@ -1,26 +1,43 @@
+/* amoCard.css */
+
+/* Estilo base compartido con las tarjetas de mascota */
 .card {
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 1rem 1.5rem;
-    margin-bottom: 1.5rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    text-decoration: none;
-    color: inherit;
-    display: block;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin: 1rem 0;
+    transition: transform 0.2s;
 }
 
 .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: scale(1.01);
 }
 
 .card p {
-    margin: 0.3rem 0;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #333;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #333;
+/* Título interno (opcional si querés poner h3 dentro de cada card) */
+.card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #222;
+}
+
+/* Variaciones para distinguir tipo de amo */
+.card--actual {
+    border-left: 5px solid #4caf50; /* Verde para amo actual */
+}
+
+.card--anterior {
+    border-left: 5px solid #f44336; /* Rojo para amo anterior */
+}
+
+/* Contenedor de las secciones */
+.amoActualCard--container,
+.amoHistorial--container {
+    margin-top: 2rem;
 }
