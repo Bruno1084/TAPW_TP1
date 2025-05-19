@@ -30,12 +30,41 @@ class MascotaController extends BaseController
     // Create Routes
     public function getCreate()
     {
-
+        return view('mascotas/crear_mascota');
     }
 
     public function postCreate()
     {
-        
+        $mascotaModel = new MascotaModel();
+
+        try {
+            $mascota = new Mascota(
+                0,
+                $this->request->getPost('nombre'),
+                $this->request->getPost('especie'),
+                $this->request->getPost('raza'),
+                $this->request->getPost('edad'),
+                $this->request->getPost('fechaAlta'),
+            );
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
+
+        $data = [
+            'nroRegistro' => $mascota->getNroRegistro(),
+            'nombre' => $mascota->getNombre('nombre'),
+            'especie' => $mascota->getEspecie('especie'),
+            'raza' => $mascota->getRaza('raza'),
+            'edad' => $mascota->getEdad('edad'),
+            'fechaAlta' => $mascota->getFechaAlta('fechaAlta'),
+            'fechaDefuncion' => $mascota->getFechaDefuncion('fechaDefuncion'),
+        ];
+
+        if (!$mascotaModel->insert($data)) {
+            return redirect()->back()->withInput()->with('errors', $mascotaModel->errors());
+        }
+
+        return redirect()->to('/mascotas')->with('message', 'Mascota creada con éxito');
     }
 
     // Edit Routes
@@ -81,5 +110,4 @@ class MascotaController extends BaseController
 
         return redirect()->to('/mascotas')->with('message', 'Mascota creada con éxito');
     }
-
 }

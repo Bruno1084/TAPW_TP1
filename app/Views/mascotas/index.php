@@ -20,7 +20,7 @@
 
             <div class="options--container">
                 <div>
-                    <a href="#">Añadir</a>
+                    <a href="/mascotas/crear">Añadir</a>
                 </div>
                 <div>
                     <a href="#">Adoptar</a>

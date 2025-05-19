@@ -16,11 +16,11 @@
         <?= view('Layouts/sideBar.php') ?>
 
         <section>
-            <h1>Mascotas</h1>
+            <h1>Amos</h1>
 
             <div class="options--container">
                 <div>
-                    <a href="#">Añadir</a>
+                    <a href="/amos/crear">Añadir</a>
                 </div>
                 <div>
                     <a href="#">Adoptar</a>

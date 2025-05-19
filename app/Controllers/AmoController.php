@@ -8,6 +8,7 @@ use InvalidArgumentException;
 
 class AmoController extends BaseController
 {
+    // Get Routes
     public function getAll()
     {
         $amoModel = new AmoModel();
@@ -26,6 +27,46 @@ class AmoController extends BaseController
         return view('amos/ver_amo', $data);
     }
 
+    // Create Routes
+    public function getCreate()
+    {
+        return view('amos/crear_amo');
+    }
+
+    public function postCreate()
+    {
+        $amoModel = new AmoModel();
+
+        try {
+            $mascota = new Amo(
+                0,
+                $this->request->getPost('nombre'),
+                $this->request->getPost('apellido'),
+                $this->request->getPost('direccion'),
+                $this->request->getPost('telefono'),
+                $this->request->getPost('fechaAlta'),
+            );
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
+
+        $data = [
+            'id' => $mascota->getId(),
+            'nombre' => $mascota->getNombre('nombre'),
+            'apellido' => $mascota->getApellido('apellido'),
+            'direccion' => $mascota->getDireccion('direccion'),
+            'telefono' => $mascota->getTelefono('telefono'),
+            'fechaAlta' => $mascota->getFechaAlta('fechaAlta'),
+        ];
+
+        if (!$amoModel->insert($data)) {
+            return redirect()->back()->withInput()->with('errors', $amoModel->errors());
+        }
+
+        return redirect()->to('/amos')->with('message', 'Amo creado con éxito');
+    }
+
+    // Edit Routes
     public function getEdit($id)
     {
         $amoModel = new AmoModel();

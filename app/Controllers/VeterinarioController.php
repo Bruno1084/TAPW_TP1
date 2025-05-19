@@ -8,6 +8,7 @@ use InvalidArgumentException;
 
 class VeterinarioController extends BaseController
 {
+    // Get Routes
     public function getAll()
     {
         $veterinarioModel = new VeterinarioModel();
@@ -26,6 +27,47 @@ class VeterinarioController extends BaseController
         return view('veterinarios/ver_veterinario', $data);
     }
 
+    // Create Routes
+    public function getCreate()
+    {
+        return view('veterinarios/crear_veterinario');
+    }
+
+    public function postCreate()
+    {
+        $veterinarioModel = new VeterinarioModel();
+
+        try {
+            $veterinario = new Veterinario(
+                0,
+                $this->request->getPost('nombre'),
+                $this->request->getPost('apellido'),
+                $this->request->getPost('especialidad'),
+                $this->request->getPost('telefono'),
+                $this->request->getPost('fechaAlta'),
+            );
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
+
+        $data = [
+            'id' => $veterinario->getId(),
+            'nombre' => $veterinario->getNombre('nombre'),
+            'apellido' => $veterinario->getApellido('apellido'),
+            'especialidad' => $veterinario->getEspecialidad('especialidad'),
+            'telefono' => $veterinario->getTelefono('telefono'),
+            'fechaIngreso' => $veterinario->getFechaIngreso('fechaIngreso'),
+            'fechaEgreso' => $veterinario->getFechaEgreso('fechaEgreso'),
+        ];
+
+        if (!$veterinarioModel->insert($data)) {
+            return redirect()->back()->withInput()->with('errors', $veterinarioModel->errors());
+        }
+
+        return redirect()->to('/veterinarios')->with('message', 'Veterinario creado con éxito');
+    }
+
+    // Edit Routes
     public function getEdit($id)
     {
         $veterinarioModel = new VeterinarioModel();

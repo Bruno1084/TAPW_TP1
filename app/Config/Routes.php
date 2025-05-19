@@ -13,6 +13,9 @@ $routes->get('/', 'MenuPrincipal::index');
 // Amo - Routes
 $routes->get('/amos', 'AmoController::getAll'); // GetAll
 $routes->get('/amos/(:num)', 'AmoController::getOne/$1'); // GetOne
+// Amo - Create
+$routes->get('/amos/crear', 'AmoController::getCreate');
+$routes->post('/amos/crear', 'AmoController::postCreate');
 //  Amo - Edit
 $routes->get('/amos/editar/(:num)', 'AmoController::getEdit/$1');
 $routes->post('amos/editar/(:num)', 'AmoController::postEdit/$1');
@@ -24,6 +27,9 @@ $routes->post('/amos/eliminar/(:num)', 'AmoController::postDelete/$1');
 // Mascota - Routes
 $routes->get('/mascotas', 'MascotaController::getAll'); // GetAll
 $routes->get('/mascotas/(:num)', 'MascotaController::getOne/$1'); // GetOne
+// Mascota - Create
+$routes->get('/mascotas/crear', 'MascotaController::getCreate');
+$routes->post('/mascotas/crear', 'MascotaController::postCreate');
 // Mascota - Edit
 $routes->get('/mascotas/editar/(:num)', 'MascotaController::getEdit/$1');
 $routes->post('/mascotas/editar/(:num)', 'MascotaController::postEdit/$1');
@@ -35,6 +41,9 @@ $routes->post('/mascotas/eliminar/(:num)', 'MascotaController::postDelete/$1');
 // Veterinario - Routes
 $routes->get('/veterinarios', 'VeterinarioController::getAll'); // GetAll
 $routes->get('/veterinarios/(:num)', 'VeterinarioController::getOne/$1'); // GetOne
+// Veterinario - Create
+$routes->get('/veterinarios/crear', 'VeterinarioController::getCreate');
+$routes->post('/veterinarios/crear', 'VeterinarioController::postCreate');
 // Veterinario - Edit
 $routes->get('/veterinarios/editar/(:num)', 'VeterinarioController::getEdit/$1');
 $routes->post('/veterinarios/editar/(:num)', 'VeterinarioController::postEdit/$1');
