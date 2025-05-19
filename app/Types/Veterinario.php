@@ -12,7 +12,7 @@ class Veterinario
     private string $apellido;
     private string $especialidad;
     private string $telefono;
-    private DateTime $fechaIngreso;
+    private ?DateTime $fechaIngreso;
     private ?DateTime $fechaEgreso;
 
     public function __construct(
@@ -21,7 +21,7 @@ class Veterinario
         string $apellido,
         string $especialidad,
         string $telefono,
-        $fechaIngreso,
+        $fechaIngreso = null,
         $fechaEgreso = null
     ) {
         $this->setId($id);
@@ -37,15 +37,15 @@ class Veterinario
 
     private function checkVars(): void
     {
-        if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u', $this->nombre)) {
+        if (empty($this->nombre)) {
             throw new InvalidArgumentException("Nombre inválido");
         }
 
-        if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u', $this->apellido)) {
+        if (empty($this->apellido)) {
             throw new InvalidArgumentException("Apellido inválido");
         }
 
-        if (!preg_match('/^[a-zA-Z\s]+$/u', $this->especialidad)) {
+        if (empty($this->especialidad)) {
             throw new InvalidArgumentException("Especialidad inválida");
         }
 
@@ -119,12 +119,16 @@ class Veterinario
     // Fecha de ingreso
     public function getFechaIngreso(): string
     {
-        return $this->fechaIngreso->format('Y-m-d');
+        return $this->fechaIngreso ? $this->fechaIngreso->format('Y-m-d') : null;
     }
 
     public function setFechaIngreso($fecha): void
     {
-        $this->fechaIngreso = $fecha instanceof DateTime ? $fecha : new DateTime($fecha);
+        if (is_null($fecha)) {
+            $this->fechaIngreso = null;
+        } else {
+            $this->fechaIngreso = $fecha instanceof DateTime ? $fecha : new DateTime($fecha);
+        }
     }
 
     // Fecha de egreso

@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\AmoModel;
+use App\Types\Amo;
+use InvalidArgumentException;
 
 class AmoController extends BaseController
 {
@@ -24,25 +26,44 @@ class AmoController extends BaseController
         return view('amos/ver_amo', $data);
     }
 
-    public function getMascotasFromAmo($idAmo)
+    public function getEdit($id)
     {
         $amoModel = new AmoModel();
-        $mascotas = $amoModel->getMascotasFromAmo($idAmo);
+        $data['amo'] = $amoModel->find($id);
 
-        if (!$mascotas) {
-            return $this->response->setStatusCode(404)->setJSON([
-                'error' => "Mascotas no encontradas para el usuario " . $idAmo
-            ]);
-        }
-
-        return $this->response->setJSON($mascotas);
+        return view('amos/editar_amo', $data);
     }
 
-    public function getMascotasFromAmoView($idAmo){
+    public function postEdit($id)
+    {
         $amoModel = new AmoModel();
-        $data['mascotas'] = $amoModel->getMascotasFromAmo($idAmo);
 
+        try {
+            $newAmo = new Amo(
+                $id,
+                $this->request->getPost('nombre'),
+                $this->request->getPost('apellido'),
+                $this->request->getPost('direccion'),
+                $this->request->getPost('telefono'),
+            );
 
-        return view('/amos/ver_amo', $data);
+            $amo = $amoModel->find($id);
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
+
+        $data = [
+            'nombre' => $newAmo->getNombre('nombre'),
+            'apellido' => $newAmo->getApellido('apellido'),
+            'direccion' => $newAmo->getDireccion('direccion'),
+            'telefono' => $newAmo->getTelefono('telefono'),
+            'fechaAlta' => $amo['fechaAlta'],
+        ];
+
+        if (!$amoModel->update($newAmo->getId(), $data)) {
+            return redirect()->back()->withInput()->with('errors', $amoModel->errors());
+        }
+
+        return redirect()->to('/amos')->with('message', 'Tarea creada con éxito');
     }
 }

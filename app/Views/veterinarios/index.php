@@ -62,8 +62,8 @@
                             <div><?= htmlspecialchars($veterinario['fechaIngreso']) ?></div>
                             <div><?= htmlspecialchars($veterinario['fechaEgreso']) ?></div>
                             <div class="row--actions" onclick="event.stopPropagation()">
-                                <a href="/veterinario/editar/<?= $veterinario['id'] ?>">✏️</a>
-                                <a href="/veterinario/eliminar/<?= $veterinario['id'] ?>">❌</a>
+                                <a href="/veterinarios/editar/<?= $veterinario['id'] ?>">✏️</a>
+                                <a href="/veterinarios/eliminar/<?= $veterinario['id'] ?>">❌</a>
                             </div>
                         </div>
                     <?php endforeach; ?>

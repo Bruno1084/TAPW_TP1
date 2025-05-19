@@ -12,7 +12,7 @@ class Mascota
     private string $especie;
     private string $raza;
     private int $edad;
-    private DateTime $fechaAlta;
+    private ?DateTime $fechaAlta;
     private ?DateTime $fechaDefuncion;
 
     public function __construct(
@@ -21,7 +21,7 @@ class Mascota
         string $especie,
         string $raza,
         int $edad,
-        $fechaAlta,
+        $fechaAlta = null,
         $fechaDefuncion = null
     ) {
         $this->setNroRegistro($nroRegistro);
@@ -119,12 +119,16 @@ class Mascota
     // Fecha Alta
     public function getFechaAlta(): string
     {
-        return $this->fechaAlta->format('Y-m-d');
+        return $this->fechaAlta ? $this->fechaAlta->format('Y-m-d') : null;
     }
 
     public function setFechaAlta($fecha): void
     {
-        $this->fechaAlta = $fecha instanceof DateTime ? $fecha : new DateTime($fecha);
+        if (is_null($fecha)) {
+            $this->fechaAlta = null;
+        } else {
+            $this->fechaAlta = $fecha instanceof DateTime ? $fecha : new DateTime($fecha);
+        }
     }
 
     // Fecha Defunción

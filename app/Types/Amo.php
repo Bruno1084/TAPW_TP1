@@ -14,7 +14,7 @@ class Amo
     private string $telefono;
     private DateTime $fechaAlta;
 
-    public function __construct($id, $nombre, $apellido, $direccion, $telefono, $fechaAlta)
+    public function __construct($id, $nombre, $apellido, $direccion, $telefono, $fechaAlta = null)
     {
         $this->setId($id);
         $this->setNombre($nombre);
@@ -49,7 +49,7 @@ class Amo
             throw new InvalidArgumentException("Dirección no puede estar vacía");
         }
 
-        if (!$this->fechaAlta instanceof DateTime) {
+        if (!$this->fechaAlta instanceof DateTime && $this->fechaAlta != null) {
             throw new InvalidArgumentException("Fecha inválida");
         }
     }

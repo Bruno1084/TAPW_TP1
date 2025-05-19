@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\VeterinarioModel;
+use App\Types\Veterinario;
+use InvalidArgumentException;
 
 class VeterinarioController extends BaseController
 {
@@ -24,12 +26,46 @@ class VeterinarioController extends BaseController
         return view('veterinarios/ver_veterinario', $data);
     }
 
-    public function getMascotasFromVeterinario($idVeterinario)
+    public function getEdit($id)
+    {
+        $veterinarioModel = new VeterinarioModel();
+        $data['veterinario'] = $veterinarioModel->find($id);
+
+        return view('veterinarios/editar_veterinario', $data);
+    }
+
+    public function postEdit($id)
     {
         $veterinarioModel = new VeterinarioModel();
 
-        $data['mascotas'] = $veterinarioModel->getMascotasFromVeterinario($idVeterinario);
+        try {
+            $newVeterinario = new Veterinario(
+                $id,
+                $this->request->getPost('nombre'),
+                $this->request->getPost('apellido'),
+                $this->request->getPost('especialidad'),
+                $this->request->getPost('telefono'),
+            );
 
-        return view('veterinarios/ver_veterinario', $data);
+            $veterinario = $veterinarioModel->find($id);
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
+
+        $data = [
+            'nroRegistro' => $newVeterinario->getId(),
+            'nombre' => $newVeterinario->getNombre('nombre'),
+            'apellido' => $newVeterinario->getApellido('apellido'),
+            'especialidad' => $newVeterinario->getEspecialidad('especialidad'),
+            'telefono' => $newVeterinario->getTelefono('telefono'),
+            'fechaIngreso' => $veterinario['fechaIngreso'],
+            'fechaEgreso' => $veterinario['fechaEgreso'],
+        ];
+
+        if (!$veterinarioModel->update($newVeterinario->getId(), $data)) {
+            return redirect()->back()->withInput()->with('errors', $veterinarioModel->errors());
+        }
+
+        return redirect()->to('/veterinarios')->with('message', 'Veterinario creada con éxito');
     }
 }

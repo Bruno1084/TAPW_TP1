@@ -37,9 +37,9 @@
 
             <!-- Datos de la mascota actual -->
             <div class="mascotaActualCard--container">
-                <h2>Mascotas actuales</h2>
-                <?php if (empty($mascotasActuales)): ?>
-                    <p>No hay mascotas actuales.</p>
+                <h2>Mascotas atendidas</h2>
+                <?php if (empty($mascotas)): ?>
+                    <p>No hay mascotas atendidas.</p>
                 <?php else: ?>
                     <div class="table--container">
                         <!-- Cabecera -->
@@ -55,7 +55,7 @@
                         </div>
 
                         <!-- Filas -->
-                        <?php foreach ($mascotasActuales as $mascota): ?>
+                        <?php foreach ($mascotas as $mascota): ?>
                             <div class="table--row" onclick="window.location='/mascotas/<?= $mascota['nroRegistro'] ?>'">
                                 <div><?= htmlspecialchars($mascota['nroRegistro']) ?></div>
                                 <div><?= htmlspecialchars($mascota['nombre']) ?></div>
@@ -72,47 +72,6 @@
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
-            </div>
-            </div>
-
-            <!-- Datos del amo anterior -->
-            <div class="mascotaHistorial--container">
-                <h2>Historial de mascotas</h2>
-                <?php if (empty($mascotasAnteriores)): ?>
-                    <p>No hay mascotas anteriores.</p>
-                <?php else: ?>
-                    <div class="table--container">
-                        <!-- Cabecera -->
-                        <div class="table--header">
-                            <div>Nro Registro</div>
-                            <div>Nombre</div>
-                            <div>Especie</div>
-                            <div>Raza</div>
-                            <div>Edad</div>
-                            <div>Fecha Alta</div>
-                            <div>Fecha Defunción</div>
-                            <div>Opciones</div>
-                        </div>
-
-                        <!-- Filas -->
-                    <?php foreach ($mascotasAnteriores as $mascota): ?>
-                        <div class="table--row" onclick="window.location='/mascotas/<?= $mascota['nroRegistro'] ?>'">
-                            <div><?= htmlspecialchars($mascota['nroRegistro']) ?></div>
-                            <div><?= htmlspecialchars($mascota['nombre']) ?></div>
-                            <div><?= htmlspecialchars($mascota['especie']) ?></div>
-                            <div><?= htmlspecialchars($mascota['raza']) ?></div>
-                            <div><?= htmlspecialchars($mascota['edad']) ?></div>
-                            <div><?= htmlspecialchars($mascota['fechaAlta']) ?></div>
-                            <div><?= htmlspecialchars($mascota['fechaDefuncion']) ?></div>
-                            <div class="row--actions" onclick="event.stopPropagation()">
-                                <a href="/mascotas/editar/<?= $mascota['nroRegistro'] ?>">✏️</a>
-                                <a href="/mascotas/eliminar/<?= $mascota['nroRegistro'] ?>">❌</a>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
             </div>
         </section>
     </main>
