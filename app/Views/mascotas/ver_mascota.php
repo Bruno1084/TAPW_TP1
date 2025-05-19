@@ -25,13 +25,39 @@
 
             <div class="options--container">
                 <div>
-                    <a href="#">Añadir Amo</a>
+                    <a href="/amos/adoptar">Añadir Amo</a>
                 </div>
                 <div>
-                    <a href="#">Editar</a>
+                    <a href="/amos/editar/<?= $mascota['nroRegistro'] ?>">Editar</a>
                 </div>
                 <div>
-                    <a href="#">Eliminar</a>
+                    <a href="/amos/eliminar/<?= $mascota['nroRegistro'] ?>">Eliminar</a>
+                </div>
+            </div>
+
+            <div class="mascotaActualCard--container">
+                <div class="table--container">
+                    <!-- Cabecera -->
+                    <div class="table--header">
+                        <div>NroRegistro</div>
+                        <div>Nombre</div>
+                        <div>Especie</div>
+                        <div>Raza</div>
+                        <div>Edad</div>
+                        <div>Fecha Alta</div>
+                        <div>Fecha Defunción</div>
+                    </div>
+
+                    <!-- Filas -->
+                    <div class="table--row">
+                        <div><?= htmlspecialchars($mascota['nroRegistro']) ?></div>
+                        <div><?= htmlspecialchars($mascota['nombre']) ?></div>
+                        <div><?= htmlspecialchars($mascota['especie']) ?></div>
+                        <div><?= htmlspecialchars($mascota['raza']) ?></div>
+                        <div><?= htmlspecialchars($mascota['edad']) ?></div>
+                        <div><?= htmlspecialchars($mascota['fechaAlta']) ?></div>
+                        <div><?= htmlspecialchars($mascota['fechaDefuncion']) ?></div>
+                    </div>
                 </div>
             </div>
 

@@ -25,13 +25,37 @@
 
             <div class="options--container">
                 <div>
-                    <a href="#">Añadir Mascota</a>
+                    <a href="/amos/adoptar">Añadir Mascota</a>
                 </div>
                 <div>
-                    <a href="#">Editar</a>
+                    <a href="/amos/editar/<?= $amo['id'] ?>">Editar</a>
                 </div>
                 <div>
-                    <a href="#">Eliminar</a>
+                    <a href="/amos/eliminar/<?= $amo['id'] ?>">Eliminar</a>
+                </div>
+            </div>
+
+            <div class="mascotaActualCard--container">
+                <div class="table--container">
+                    <!-- Cabecera -->
+                    <div class="table--header">
+                        <div>ID</div>
+                        <div>Nombre</div>
+                        <div>Apellido</div>
+                        <div>Dirección</div>
+                        <div>Teléfono</div>
+                        <div>Fecha Alta</div>
+                    </div>
+
+                    <!-- Filas -->
+                    <div class="table--row">
+                        <div><?= htmlspecialchars($amo['id']) ?></div>
+                        <div><?= htmlspecialchars($amo['nombre']) ?></div>
+                        <div><?= htmlspecialchars($amo['apellido']) ?></div>
+                        <div><?= htmlspecialchars($amo['direccion']) ?></div>
+                        <div><?= htmlspecialchars($amo['telefono']) ?></div>
+                        <div><?= htmlspecialchars($amo['fechaAlta']) ?></div>
+                    </div>
                 </div>
             </div>
 
@@ -73,7 +97,6 @@
                     </div>
                 <?php endif; ?>
             </div>
-            </div>
 
             <!-- Datos del amo anterior -->
             <div class="mascotaHistorial--container">
@@ -95,21 +118,21 @@
                         </div>
 
                         <!-- Filas -->
-                    <?php foreach ($mascotasAnteriores as $mascota): ?>
-                        <div class="table--row" onclick="window.location='/mascotas/<?= $mascota['nroRegistro'] ?>'">
-                            <div><?= htmlspecialchars($mascota['nroRegistro']) ?></div>
-                            <div><?= htmlspecialchars($mascota['nombre']) ?></div>
-                            <div><?= htmlspecialchars($mascota['especie']) ?></div>
-                            <div><?= htmlspecialchars($mascota['raza']) ?></div>
-                            <div><?= htmlspecialchars($mascota['edad']) ?></div>
-                            <div><?= htmlspecialchars($mascota['fechaAlta']) ?></div>
-                            <div><?= htmlspecialchars($mascota['fechaDefuncion']) ?></div>
-                            <div class="row--actions" onclick="event.stopPropagation()">
-                                <a href="/mascotas/editar/<?= $mascota['nroRegistro'] ?>">✏️</a>
-                                <a href="/mascotas/eliminar/<?= $mascota['nroRegistro'] ?>">❌</a>
+                        <?php foreach ($mascotasAnteriores as $mascota): ?>
+                            <div class="table--row" onclick="window.location='/mascotas/<?= $mascota['nroRegistro'] ?>'">
+                                <div><?= htmlspecialchars($mascota['nroRegistro']) ?></div>
+                                <div><?= htmlspecialchars($mascota['nombre']) ?></div>
+                                <div><?= htmlspecialchars($mascota['especie']) ?></div>
+                                <div><?= htmlspecialchars($mascota['raza']) ?></div>
+                                <div><?= htmlspecialchars($mascota['edad']) ?></div>
+                                <div><?= htmlspecialchars($mascota['fechaAlta']) ?></div>
+                                <div><?= htmlspecialchars($mascota['fechaDefuncion']) ?></div>
+                                <div class="row--actions" onclick="event.stopPropagation()">
+                                    <a href="/mascotas/editar/<?= $mascota['nroRegistro'] ?>">✏️</a>
+                                    <a href="/mascotas/eliminar/<?= $mascota['nroRegistro'] ?>">❌</a>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
             </div>

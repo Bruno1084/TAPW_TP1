@@ -87,6 +87,8 @@ class MascotaController extends BaseController
                 $this->request->getPost('especie'),
                 $this->request->getPost('raza'),
                 $this->request->getPost('edad'),
+                null,
+                $this->request->getPost('fechaDefuncion'),
             );
 
             $mascota = $mascotaModel->find($id);
@@ -101,7 +103,7 @@ class MascotaController extends BaseController
             'raza' => $newMascota->getRaza('raza'),
             'edad' => $newMascota->getEdad('edad'),
             'fechaAlta' => $mascota['fechaAlta'],
-            'fechaDefuncion' => $mascota['fechaDefuncion'],
+            'fechaDefuncion' => $newMascota['fechaDefuncion'],
         ];
 
         if (!$mascotaModel->update($newMascota->getNroRegistro(), $data)) {
@@ -109,5 +111,14 @@ class MascotaController extends BaseController
         }
 
         return redirect()->to('/mascotas')->with('message', 'Mascota creada con éxito');
+    }
+
+    // Delete Routes
+    public function getDelete($id)
+    {
+        $mascotaModel = new MascotaModel();
+        $mascotaModel->delete($id);
+
+        return view('mascota/index');
     }
 }

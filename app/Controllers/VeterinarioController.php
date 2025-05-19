@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\MascotaModel;
+use App\Models\Veterinario_MascotaModel;
 use App\Models\VeterinarioModel;
 use App\Types\Veterinario;
 use InvalidArgumentException;
@@ -109,5 +111,58 @@ class VeterinarioController extends BaseController
         }
 
         return redirect()->to('/veterinarios')->with('message', 'Veterinario creada con éxito');
+    }
+
+    // Delete Routes
+    public function getDelete($id)
+    {
+        $veterinarioModel = new VeterinarioModel();
+        $veterinarioModel->delete($id);
+
+        return view('veterinarios/index');
+    }
+
+    // Atender - Routes
+    public function getAtender()
+    {
+        $veterinarioModel = new VeterinarioModel();
+        $mascotaModel = new MascotaModel();
+
+        $data['veterinarios'] = $veterinarioModel
+            ->where('fechaEgreso', null)
+            ->findAll();
+
+        $data['mascotas'] = $mascotaModel
+            ->where('fechaDefuncion', null)
+            ->findAll();
+
+        return view('veterinarios/atender_mascota', $data);
+    }
+
+    public function postAtender()
+    {
+        $idVeterinario = $this->request->getPost('idVeterinario');
+        $idMascota = $this->request->getPost('nroRegistro');
+        $fechaAtencion = $this->request->getPost('fechaAtencion');
+        $motivoAtencion = $this->request->getPost('motivoAtencion');
+
+        if (!$idVeterinario || !$idMascota || !$fechaAtencion || !$motivoAtencion) {
+            return redirect()->back()->with('error', 'Todos los campos son obligatorios');
+        }
+
+        $veterinario_mascotaModel = new Veterinario_MascotaModel();
+
+        $data = [
+            'idVeterinario' => $idVeterinario,
+            'idMascota' => $idMascota,
+            'fechaAtencion' => $fechaAtencion,
+            'motivoAtencion' => $motivoAtencion,
+        ];
+
+        if (!$veterinario_mascotaModel->insert($data)) {
+            return redirect()->back()->withInput()->with('errors', $veterinario_mascotaModel->errors());
+        }
+
+        return redirect()->to('/veterinarios')->with('message', 'Atención registrada con éxito');
     }
 }

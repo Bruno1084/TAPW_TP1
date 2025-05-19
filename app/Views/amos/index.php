@@ -23,7 +23,7 @@
                     <a href="/amos/crear">Añadir</a>
                 </div>
                 <div>
-                    <a href="#">Adoptar</a>
+                    <a href="/amos/adoptar">Adoptar</a>
                 </div>
             </div>
 

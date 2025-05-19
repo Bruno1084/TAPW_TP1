@@ -23,10 +23,10 @@
                     <a href="/mascotas/crear">Añadir</a>
                 </div>
                 <div>
-                    <a href="#">Adoptar</a>
+                    <a href="/amos/adoptar">Adoptar</a>
                 </div>
                 <div>
-                    <a href="#">Atender</a>
+                    <a href="/veterinarios/atender">Atender</a>
                 </div>
             </div>
 

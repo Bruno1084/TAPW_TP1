@@ -18,9 +18,7 @@ class MascotaModel extends Model
         'fechaDefuncion',
     ];
 
-    /*
-    Retorna todos los amos de una mascota.
-    */
+    /* Retorna todos los amos de una mascota. */
     public function getAmosFromMascota(int $idMascota)
     {
         return $this->db->table('amo_mascota am')
@@ -30,5 +28,18 @@ class MascotaModel extends Model
             ->orderBy('am.fechaInicio', 'ASC')
             ->get()
             ->getResultArray();
+    }
+
+    /* Retorna solo mas mascotas no adoptadas y que no hayan fallecido. */
+    public function getDisponibles()
+    {
+        return $this->select('mascotas.*')
+            ->where('mascotas.fechaDefuncion', null)
+            ->whereNotIn('mascotas.nroRegistro', function ($builder) {
+                $builder->select('idMascota')
+                    ->from('amo_mascota')
+                    ->where('fechaFinal IS NULL');
+            })
+            ->findAll();
     }
 }

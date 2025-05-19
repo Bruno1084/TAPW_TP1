@@ -46,6 +46,11 @@
                         <input type="text" id="edad" name="edad" value="<?= esc($mascota['edad']) ?>" required>
                     </div>
 
+                    <div class="form-group">
+                        <label for="fechaDefuncion">Fecha de defunción</label>
+                        <input type="date" id="fechaDefuncion" name="fechaDefuncion" value="<?= esc($mascota['fechaDefuncion']) ?>">
+                    </div>
+
                     <div class="form-actions">
                         <button type="submit">Guardar Cambios</button>
                         <a href="/amos/<?= esc($mascota['nroRegistro']) ?>" class="cancel-button">Cancelar</a>

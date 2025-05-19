@@ -46,6 +46,11 @@
                         <input type="text" id="telefono" name="telefono" value="<?= esc($veterinario['telefono']) ?>" required>
                     </div>
 
+                    <div class="form-group">
+                        <label for="fechaEgreso">Fecha de Egreso</label>
+                        <input type="date" id="fechaEgreso" name="fechaEgreso" value="<?= esc($veterinario['fechaEgreso']) ?>">
+                    </div>
+
                     <div class="form-actions">
                         <button type="submit">Guardar Cambios</button>
                         <a href="/veterinarios/<?= esc($veterinario['id']) ?>" class="cancel-button">Cancelar</a>

@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\Amo_MascotaModel;
 use App\Models\AmoModel;
+use App\Models\MascotaModel;
 use App\Types\Amo;
 use InvalidArgumentException;
 
@@ -106,5 +108,55 @@ class AmoController extends BaseController
         }
 
         return redirect()->to('/amos')->with('message', 'Tarea creada con éxito');
+    }
+
+    // Delete Routes
+    public function getDelete($id)
+    {
+        $amoModel = new AmoModel();
+        $amoModel->delete($id);
+
+        return view('amos/index');
+    }
+
+    // Amo Adoptar
+    public function getAdoptar()
+    {
+        $amoModel = new AmoModel();
+        $mascotaModel = new MascotaModel();
+
+        $data['amos'] = $amoModel->findAll();
+        $data['mascotas'] = $mascotaModel->getDisponibles();
+
+        return view('amos/adoptar_mascota', $data);
+    }
+
+
+
+    public function postAdoptar()
+    {
+        $idAmo = $this->request->getPost('idAmo');
+        $idMascota = $this->request->getPost('nroRegistro');
+        $fechaInicio = $this->request->getPost('fechaInicio');
+
+        if (!$idAmo || !$idMascota || !$fechaInicio) {
+            return redirect()->back()->with('error', 'Todos los campos son obligatorios');
+        }
+
+        $amo_mascotaModel = new Amo_MascotaModel();
+
+        $data = [
+            'idAmo' => $idAmo,
+            'idMascota' => $idMascota,
+            'fechaInicio' => $fechaInicio,
+            'fechaFinal' => null,
+            'motivoFin' => null
+        ];
+
+        if (!$amo_mascotaModel->insert($data)) {
+            return redirect()->back()->withInput()->with('errors', $amo_mascotaModel->errors());
+        }
+
+        return redirect()->to('/amos')->with('message', 'Adopción registrada con éxito');
     }
 }

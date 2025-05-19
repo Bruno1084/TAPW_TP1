@@ -23,7 +23,7 @@
                     <a href="/veterinarios/crear">Añadir</a>
                 </div>
                 <div>
-                    <a href="#">Atender mascota</a>
+                    <a href="/veterinarios/atender">Atender mascota</a>
                 </div>
             </div>
 

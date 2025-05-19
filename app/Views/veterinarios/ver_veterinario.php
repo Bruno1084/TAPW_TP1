@@ -25,13 +25,13 @@
 
             <div class="options--container">
                 <div>
-                    <a href="#">Añadir Mascota</a>
+                    <a href="/veterinarios/atender">Añadir Mascota</a>
                 </div>
                 <div>
-                    <a href="#">Editar</a>
+                    <a href="/veterinarios/editar/<?= $veterinario['id'] ?>">Editar</a>
                 </div>
                 <div>
-                    <a href="#">Eliminar</a>
+                    <a href="/veterinarios/eliminar/<?= $veterinario['id'] ?>">Eliminar</a>
                 </div>
             </div>
 
