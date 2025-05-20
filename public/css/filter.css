@@ -1,0 +1,48 @@
+/* Contenedor principal del filtro de amos */
+.amoFilter--container {
+    display: flex;
+    flex-direction: column;
+    background-color: #e8eaf6;
+    border-left: 4px solid #3f51b5;
+    padding: 1.2rem;
+    margin: 1rem 0 ;
+    border-radius: 6px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilo base para inputs y selects del filtro */
+.amoFilter--container input[type="text"],
+.amoFilter--container input[type="date"],
+.amoFilter--container input[type="number"],
+.amoFilter--container select {
+    padding: 0.6rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+/* Botón de filtrar */
+.amoFilter--container button {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+}
+
+.amoFilter--container button:hover {
+    background-color: #303f9f;
+}
+
+/* Layout responsive del formulario */
+.amoFilter--container form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.5rem;
+}

@@ -14,7 +14,29 @@ class AmoController extends BaseController
     public function getAll()
     {
         $amoModel = new AmoModel();
-        $data['amos'] = $amoModel->findAll();
+        $builder = $amoModel;
+
+        if (!empty($_GET['nombre'])) {
+            $builder->like('nombre', $_GET['nombre']);
+        }
+
+        if (!empty($_GET['apellido'])) {
+            $builder->like('apellido', $_GET['apellido']);
+        }
+
+        if (!empty($_GET['direccion'])) {
+            $builder->like('direccion', $_GET['direccion']);
+        }
+
+        if (!empty($_GET['telefono'])) {
+            $builder->like('telefono', $_GET['telefono']);
+        }
+
+        if (!empty($_GET['fechaAlta'])) {
+            $builder->where('fechaAlta', $_GET['fechaAlta']);
+        }
+
+        $data['amos'] = $builder->findAll();
 
         return view('amos/index', $data);
     }

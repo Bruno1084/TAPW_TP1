@@ -12,10 +12,35 @@ class MascotaController extends BaseController
     public function getAll()
     {
         $mascotaModel = new MascotaModel();
-        $data['mascotas'] = $mascotaModel->findAll();
+        $builder = $mascotaModel;
+
+        $nombre = $this->request->getGet('nombre');
+        $especie = $this->request->getGet('especie');
+        $raza = $this->request->getGet('raza');
+        $edad = $this->request->getGet('edad');
+        $estado = $this->request->getGet('estado');
+
+        if ($nombre) {
+            $builder->like('nombre', $nombre);
+        }
+
+        if ($especie) {
+            $builder->like('especie', $especie);
+        }
+
+        if ($raza) {
+            $builder->like('raza', $raza);
+        }
+
+        if ($edad !== null && $edad !== '') {
+            $builder->where('edad', $edad);
+        }
+
+        $data['mascotas'] = $builder->findAll();
 
         return view('mascotas/index', $data);
     }
+
 
     public function getOne($id)
     {

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/mascotaCard.css">
+    <link rel="stylesheet" href="css/filter.css">
     <title>Mi Veterinaria</title>
 </head>
 
@@ -30,11 +31,7 @@
                 </div>
             </div>
 
-            <div class="filter--container">
-                <div>
-                    <p>filter</p>
-                </div>
-            </div>
+            <?= view('Layouts/mascotas_filter.php') ?>
 
             <section class="table--container">
                 <?php if (!isset($mascotas) || !is_array($mascotas) || count($mascotas) === 0): ?>

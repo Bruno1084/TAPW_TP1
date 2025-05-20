@@ -14,7 +14,40 @@ class VeterinarioController extends BaseController
     public function getAll()
     {
         $veterinarioModel = new VeterinarioModel();
-        $data['veterinarios'] = $veterinarioModel->findAll();
+
+        $filters = [];
+
+        if ($this->request->getGet('nombre')) {
+            $filters['nombre'] = $this->request->getGet('nombre');
+        }
+
+        if ($this->request->getGet('apellido')) {
+            $filters['apellido'] = $this->request->getGet('apellido');
+        }
+
+        if ($this->request->getGet('especialidad')) {
+            $filters['especialidad'] = $this->request->getGet('especialidad');
+        }
+
+        // if ($this->request->getGet('fechaIngreso')) {
+        //     $filters['fechaIngreso'] = $this->request->getGet('fechaIngreso');
+        // }
+
+        // if ($this->request->getGet('fechaEgreso')) {
+        //     $filters['fechaEgreso'] = $this->request->getGet('fechaEgreso');
+        // }
+
+        if($this->request->getGet('telefono')) {
+            $filters['telefono'] = $this->request->getGet('telefono');
+        }
+
+        $builder = $veterinarioModel;
+
+        foreach ($filters as $field => $value) {
+            $builder = $builder->like($field, $value);
+        }
+
+        $data['veterinarios'] = $builder->findAll();
 
         return view('veterinarios/index', $data);
     }

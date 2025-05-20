@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/amoCard.css">
+    <link rel="stylesheet" href="/css/filter.css">
     <title>Mi Veterinaria</title>
 </head>
 
@@ -27,11 +28,7 @@
                 </div>
             </div>
 
-            <div class="filter--container">
-                <div>
-                    <p>filter</p>
-                </div>
-            </div>
+            <?= view('Layouts/amos_filter.php') ?>
 
             <div class="table--container">
                 <?php if (!isset($amos) || !is_array($amos) || count($amos) === 0): ?>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/veterinarioCard.css">
+    <link rel="stylesheet" href="css/filter.css">
     <title>Mi Veterinaria</title>
 </head>
 
@@ -27,11 +28,8 @@
                 </div>
             </div>
 
-            <div class="filter--container">
-                <div>
-                    <p>filter</p>
-                </div>
-            </div>
+            <?= view('Layouts/veterinarios_filter.php') ?>
+
 
             <div class="table--container">
                 <?php if (!isset($veterinarios) || !is_array($veterinarios) || count($veterinarios) === 0): ?>
