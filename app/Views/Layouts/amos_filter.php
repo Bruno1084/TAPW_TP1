@@ -13,6 +13,6 @@
             <input type="number" name="telefono" placeholder="telefono" value="<?= esc($_GET['telefono'] ?? '') ?>">
         </div>
 
-        <button type="submit">Filter</button>
+        <button type="submit">Filtrar</button>
     </form>
 </div>

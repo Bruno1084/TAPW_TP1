@@ -28,10 +28,10 @@
                     <a href="/amos/adoptar">Añadir Amo</a>
                 </div>
                 <div>
-                    <a href="/amos/editar/<?= $mascota['nroRegistro'] ?>">Editar</a>
+                    <a href="/mascotas/editar/<?= $mascota['nroRegistro'] ?>">Editar</a>
                 </div>
                 <div>
-                    <a href="/amos/eliminar/<?= $mascota['nroRegistro'] ?>">Eliminar</a>
+                    <a href="/mascotas/eliminar/<?= $mascota['nroRegistro'] ?>">Eliminar</a>
                 </div>
             </div>
 

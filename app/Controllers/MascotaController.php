@@ -128,7 +128,7 @@ class MascotaController extends BaseController
             'raza' => $newMascota->getRaza('raza'),
             'edad' => $newMascota->getEdad('edad'),
             'fechaAlta' => $mascota['fechaAlta'],
-            'fechaDefuncion' => $newMascota['fechaDefuncion'],
+            'fechaDefuncion' => $newMascota->getFechaDefuncion('fechaDefuncion'),
         ];
 
         if (!$mascotaModel->update($newMascota->getNroRegistro(), $data)) {
@@ -144,6 +144,6 @@ class MascotaController extends BaseController
         $mascotaModel = new MascotaModel();
         $mascotaModel->delete($id);
 
-        return view('mascota/index');
+        return view('mascotas/index');
     }
 }
