@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\Amo_MascotaModel;
 use App\Models\MascotaModel;
+use App\Models\Veterinario_MascotaModel;
 use App\Types\Mascota;
 use InvalidArgumentException;
 
@@ -41,7 +43,6 @@ class MascotaController extends BaseController
         return view('mascotas/index', $data);
     }
 
-
     public function getOne($id)
     {
         $mascotaModel = new MascotaModel();
@@ -51,6 +52,7 @@ class MascotaController extends BaseController
 
         return view('mascotas/ver_mascota', $data);
     }
+
 
     // Create Routes
     public function getCreate()
@@ -91,6 +93,7 @@ class MascotaController extends BaseController
 
         return redirect()->to('/mascotas')->with('message', 'Mascota creada con éxito');
     }
+
 
     // Edit Routes
     public function getEdit($id)
@@ -142,8 +145,8 @@ class MascotaController extends BaseController
     public function getDelete($id)
     {
         $mascotaModel = new MascotaModel();
-        $mascotaModel->delete($id);
+        $mascotaModel->deleteMascota($id);
 
-        return view('mascotas/index');
+        return redirect()->to('/mascotas');
     }
 }

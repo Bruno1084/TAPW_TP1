@@ -26,7 +26,7 @@ class AmoModel extends Model
     public function getMascotasFromAmo($idAmo, $actuales = false)
     {
         $builder = $this->db->table('mascotas m')
-            ->select('m.*, am.fechaInicio, am.fechaFinal, am.motivoFin')
+            ->select('m.*, am.fechaInicio, am.fechaFinal, am.motivoFin, am.id')
             ->join('amo_mascota am', 'm.nroRegistro = am.idMascota')
             ->where('am.idAmo', $idAmo);
 
@@ -36,5 +36,10 @@ class AmoModel extends Model
         }
 
         return $builder->get()->getResultArray();
+    }
+
+    public function deleteAmo_Mascota()
+    {
+        
     }
 }

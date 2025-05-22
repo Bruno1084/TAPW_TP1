@@ -6,6 +6,7 @@ use App\Models\MascotaModel;
 use App\Models\Veterinario_MascotaModel;
 use App\Models\VeterinarioModel;
 use App\Types\Veterinario;
+use App\Types\Veterinario_Mascota;
 use InvalidArgumentException;
 
 class VeterinarioController extends BaseController
@@ -37,7 +38,7 @@ class VeterinarioController extends BaseController
         //     $filters['fechaEgreso'] = $this->request->getGet('fechaEgreso');
         // }
 
-        if($this->request->getGet('telefono')) {
+        if ($this->request->getGet('telefono')) {
             $filters['telefono'] = $this->request->getGet('telefono');
         }
 
@@ -61,6 +62,7 @@ class VeterinarioController extends BaseController
 
         return view('veterinarios/ver_veterinario', $data);
     }
+
 
     // Create Routes
     public function getCreate()
@@ -102,6 +104,7 @@ class VeterinarioController extends BaseController
         return redirect()->to('/veterinarios')->with('message', 'Veterinario creado con éxito');
     }
 
+
     // Edit Routes
     public function getEdit($id)
     {
@@ -130,7 +133,7 @@ class VeterinarioController extends BaseController
         }
 
         $data = [
-            'nroRegistro' => $newVeterinario->getId(),
+            'id' => $id,
             'nombre' => $newVeterinario->getNombre('nombre'),
             'apellido' => $newVeterinario->getApellido('apellido'),
             'especialidad' => $newVeterinario->getEspecialidad('especialidad'),
@@ -143,17 +146,9 @@ class VeterinarioController extends BaseController
             return redirect()->back()->withInput()->with('errors', $veterinarioModel->errors());
         }
 
-        return redirect()->to('/veterinarios')->with('message', 'Veterinario creada con éxito');
-    }
-
-    // Delete Routes
-    public function getDelete($id)
-    {
-        $veterinarioModel = new VeterinarioModel();
-        $veterinarioModel->delete($id);
-
         return view('veterinarios/index');
     }
+
 
     // Atender - Routes
     public function getAtender()
@@ -197,5 +192,66 @@ class VeterinarioController extends BaseController
         }
 
         return redirect()->to('/veterinarios')->with('message', 'Atención registrada con éxito');
+    }
+
+    public function getEditAtender($idAtender)
+    {
+        $veterinario_mascotaModel = new Veterinario_MascotaModel();
+        $data = [
+            'atender' => $veterinario_mascotaModel->find($idAtender)
+        ];
+
+        return view('veterinarios/editar_atender', $data);
+    }
+
+    public function postEditAtender()
+    {
+        $veterinario_mascotaModel = new Veterinario_MascotaModel();
+
+        try {
+            $newVeterinario_mascota = new Veterinario_Mascota(
+                $this->request->getPost('idAtender'),
+                $this->request->getPost('idVeterinario'),
+                $this->request->getPost('idMascota'),
+                $this->request->getPost('fechaAtencion'),
+                $this->request->getPost('motivoAtencion')
+            );
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
+
+        $data = [
+            'idVeterinario' => $newVeterinario_mascota->getIdVeterinario(),
+            'idMascota' => $newVeterinario_mascota->getIdMascota(),
+            'fechaAtencion' => $newVeterinario_mascota->getFechaAtencion(),
+            'motivoAtencion' => $newVeterinario_mascota->getMotivoAtencion()
+        ];
+
+        if (!$veterinario_mascotaModel->update($newVeterinario_mascota->getId(), $data)) {
+            return redirect()->back()->withInput()->with('errors', $veterinario_mascotaModel->errors());
+        }
+
+        return redirect()->to('/veterinarios/' . $newVeterinario_mascota->getIdVeterinario());
+    }
+
+    public function deleteAtender($idAtender)
+    {
+        $veterinario_mascotaModel = new Veterinario_MascotaModel();
+        $veterinario_mascotaModel->delete($idAtender);
+
+        return view('veterinarios/index');
+    }
+
+
+    // Delete Routes
+    public function getDelete($id)
+    {
+        $veterinarioModel = new VeterinarioModel();
+        $veterinario_mascotaModel = new Veterinario_MascotaModel();
+
+        $veterinario_mascotaModel->where('idVeterinario', $id)->delete();
+        $veterinarioModel->delete($id);
+
+        return redirect()->to('/veterinarios');
     }
 }

@@ -25,7 +25,7 @@
 
             <div class="options--container">
                 <div>
-                    <a href="/amos/adoptar">Añadir Mascota</a>
+                    <a href="/amos/adoptar">Adoptar Mascota</a>
                 </div>
                 <div>
                     <a href="/amos/editar/<?= $amo['id'] ?>">Editar</a>
@@ -89,8 +89,8 @@
                                 <div><?= htmlspecialchars($mascota['fechaAlta']) ?></div>
                                 <div><?= htmlspecialchars($mascota['fechaDefuncion']) ?></div>
                                 <div class="row--actions" onclick="event.stopPropagation()">
-                                    <a href="/mascotas/editar/<?= $mascota['nroRegistro'] ?>">✏️</a>
-                                    <a href="/mascotas/eliminar/<?= $mascota['nroRegistro'] ?>">❌</a>
+                                    <a href="/amos/adoptar/editar/<?= $mascota['id'] ?>">✏️</a>
+                                    <a href="/amos/adoptar/eliminar/<?= $mascota['id'] ?>">❌</a>
                                 </div>
                             </div>
                         <?php endforeach; ?>

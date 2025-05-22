@@ -24,7 +24,7 @@ class VeterinarioModel extends Model
     public function getMascotasFromVeterinario(int $idVeterinario)
     {
         return $this->db->table('veterinario_mascota vm')
-            ->select('m.*, vm.fechaAtencion, vm.motivoAtencion')
+            ->select('m.*, vm.fechaAtencion, vm.motivoAtencion, vm.id')
             ->join('mascotas m', 'vm.idMascota = m.nroRegistro')
             ->where('vm.idVeterinario', $idVeterinario)
             ->orderBy('vm.fechaAtencion', 'ASC')

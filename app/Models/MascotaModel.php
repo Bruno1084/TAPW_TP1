@@ -42,4 +42,14 @@ class MascotaModel extends Model
             })
             ->findAll();
     }
+
+    public function deleteMascota($id)
+    {
+        $veterinario_mascotaModel = new Veterinario_MascotaModel();
+        $amo_mascotaModel = new Amo_MascotaModel();
+
+        $veterinario_mascotaModel->where('idMascota', $id)->delete();
+        $amo_mascotaModel->where('idMascota', $id);
+        $this->delete($id);
+    }
 }

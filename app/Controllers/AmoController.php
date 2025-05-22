@@ -6,6 +6,7 @@ use App\Models\Amo_MascotaModel;
 use App\Models\AmoModel;
 use App\Models\MascotaModel;
 use App\Types\Amo;
+use App\Types\Amo_Mascota;
 use InvalidArgumentException;
 
 class AmoController extends BaseController
@@ -51,6 +52,7 @@ class AmoController extends BaseController
         return view('amos/ver_amo', $data);
     }
 
+
     // Create Routes
     public function getCreate()
     {
@@ -89,6 +91,7 @@ class AmoController extends BaseController
 
         return redirect()->to('/amos')->with('message', 'Amo creado con éxito');
     }
+
 
     // Edit Routes
     public function getEdit($id)
@@ -132,14 +135,19 @@ class AmoController extends BaseController
         return redirect()->to('/amos')->with('message', 'Tarea creada con éxito');
     }
 
+
     // Delete Routes
     public function getDelete($id)
     {
         $amoModel = new AmoModel();
+        $amo_mascotaModel = new Amo_MascotaModel();
+
+        $amo_mascotaModel->where('idAmo', $id)->delete();
         $amoModel->delete($id);
 
-        return view('amos/index');
+        return redirect()->to('/amos');
     }
+
 
     // Amo Adoptar
     public function getAdoptar()
@@ -152,8 +160,6 @@ class AmoController extends BaseController
 
         return view('amos/adoptar_mascota', $data);
     }
-
-
 
     public function postAdoptar()
     {
@@ -181,4 +187,51 @@ class AmoController extends BaseController
 
         return redirect()->to('/amos')->with('message', 'Adopción registrada con éxito');
     }
+
+    public function getEditAdoptar($idAdoptar)
+    {
+        $amo_mascotaModel = new Amo_MascotaModel();
+        $data = [
+            'adoptar' => $amo_mascotaModel->find($idAdoptar)
+        ];
+
+        return view('amos/editar_adoptar', $data);
+    }
+
+    public function postEditAdoptar()
+    {
+        $amo_mascotaModel = new Amo_MascotaModel();
+
+        try {
+            $newAmo_Mascota = new Amo_Mascota(
+                $this->request->getPost('idAdoptar'),
+                $this->request->getPost('idAmo'),
+                $this->request->getPost('idMascota'),
+                $this->request->getPost('fechaIngreso'),
+                $this->request->getPost('fechaFinal'),
+                $this->request->getPost('motivoFin')
+            );
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
+
+        $data = [
+            'idAmo' => $newAmo_Mascota->getIdAmo(),
+            'idMascota' => $newAmo_Mascota->getIdMascota(),
+            'fechaIngreso' => $newAmo_Mascota->getFechaIngreso(),
+            'fechaFinal' => $newAmo_Mascota->getFechaFinal(),
+            'motivoFin' => $newAmo_Mascota->getMotivoFin(),
+        ];
+
+        if (!$amo_mascotaModel->update($newAmo_Mascota->getId(), $data)) {
+            return redirect()->back()->withInput()->with('errors', $amo_mascotaModel->errors());
+        }
+
+        return redirect()->to('/amos/' . $newAmo_Mascota->getIdAmo());
+    }
+
+
+
+
+    public function deleteAdoptar($id) {}
 }

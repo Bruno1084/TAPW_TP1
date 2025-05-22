@@ -25,7 +25,7 @@
 
             <div class="options--container">
                 <div>
-                    <a href="/veterinarios/atender">Añadir Mascota</a>
+                    <a href="/veterinarios/atender">Atender Mascota</a>
                 </div>
                 <div>
                     <a href="/veterinarios/editar/<?= $veterinario['id'] ?>">Editar</a>
@@ -44,29 +44,29 @@
                     <div class="table--container">
                         <!-- Cabecera -->
                         <div class="table--header">
-                            <div>Nro Registro</div>
+                            <div>ID Atención</div>
                             <div>Nombre</div>
                             <div>Especie</div>
                             <div>Raza</div>
                             <div>Edad</div>
-                            <div>Fecha Alta</div>
-                            <div>Fecha Defunción</div>
+                            <div>Motivo</div>
+                            <div>Fecha</div>
                             <div>Opciones</div>
                         </div>
 
                         <!-- Filas -->
                         <?php foreach ($mascotas as $mascota): ?>
-                            <div class="table--row" onclick="window.location='/mascotas/<?= $mascota['nroRegistro'] ?>'">
-                                <div><?= htmlspecialchars($mascota['nroRegistro']) ?></div>
+                            <div class="table--row">
+                                <div><?= htmlspecialchars($mascota['id']) ?></div>
                                 <div><?= htmlspecialchars($mascota['nombre']) ?></div>
                                 <div><?= htmlspecialchars($mascota['especie']) ?></div>
                                 <div><?= htmlspecialchars($mascota['raza']) ?></div>
                                 <div><?= htmlspecialchars($mascota['edad']) ?></div>
-                                <div><?= htmlspecialchars($mascota['fechaAlta']) ?></div>
-                                <div><?= htmlspecialchars($mascota['fechaDefuncion']) ?></div>
+                                <div><?= htmlspecialchars($mascota['motivoAtencion']) ?></div>
+                                <div><?= htmlspecialchars($mascota['fechaAtencion']) ?></div>
                                 <div class="row--actions" onclick="event.stopPropagation()">
-                                    <a href="/mascotas/editar/<?= $mascota['nroRegistro'] ?>">✏️</a>
-                                    <a href="/mascotas/eliminar/<?= $mascota['nroRegistro'] ?>">❌</a>
+                                    <a href="/veterinarios/atender/editar/<?= $mascota['id'] ?>">✏️</a>
+                                    <a href="/veterinarios/atender/eliminar/<?= $mascota['id'] ?>">❌</a>
                                 </div>
                             </div>
                         <?php endforeach; ?>
