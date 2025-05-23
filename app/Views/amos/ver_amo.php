@@ -12,8 +12,17 @@
 
 <body>
     <?php
-    $mascotasActuales = array_filter($mascotas, fn($m) => is_null($m['fechaDefuncion']));
-    $mascotasAnteriores = array_filter($mascotas, fn($m) => !is_null($m['fechaDefuncion']));
+    $mascotasActuales = array_filter(
+        $mascotas,
+        fn($m) =>
+        is_null($m['fechaDefuncion']) && empty($m['motivoFin'])
+    );
+
+    $mascotasAnteriores = array_filter(
+        $mascotas,
+        fn($m) =>
+        !is_null($m['fechaDefuncion']) || !empty($m['motivoFin'])
+    );
     ?>
     <?= view('Layouts/header.php'); ?>
 
@@ -73,7 +82,7 @@
                             <div>Especie</div>
                             <div>Raza</div>
                             <div>Edad</div>
-                            <div>Fecha Alta</div>
+                            <div>Fecha de Incio</div>
                             <div>Fecha Defunción</div>
                             <div>Opciones</div>
                         </div>
@@ -86,7 +95,7 @@
                                 <div><?= htmlspecialchars($mascota['especie']) ?></div>
                                 <div><?= htmlspecialchars($mascota['raza']) ?></div>
                                 <div><?= htmlspecialchars($mascota['edad']) ?></div>
-                                <div><?= htmlspecialchars($mascota['fechaAlta']) ?></div>
+                                <div><?= htmlspecialchars($mascota['fechaInicio']) ?></div>
                                 <div><?= htmlspecialchars($mascota['fechaDefuncion']) ?></div>
                                 <div class="row--actions" onclick="event.stopPropagation()">
                                     <a href="/amos/adoptar/editar/<?= $mascota['id'] ?>">✏️</a>
@@ -112,9 +121,9 @@
                             <div>Especie</div>
                             <div>Raza</div>
                             <div>Edad</div>
-                            <div>Fecha Alta</div>
+                            <div>Motivo de Finalización</div>
+                            <div>Fecha de Finalización</div>
                             <div>Fecha Defunción</div>
-                            <div>Opciones</div>
                         </div>
 
                         <!-- Filas -->
@@ -125,12 +134,9 @@
                                 <div><?= htmlspecialchars($mascota['especie']) ?></div>
                                 <div><?= htmlspecialchars($mascota['raza']) ?></div>
                                 <div><?= htmlspecialchars($mascota['edad']) ?></div>
-                                <div><?= htmlspecialchars($mascota['fechaAlta']) ?></div>
+                                <div><?= htmlspecialchars($mascota['motivoFin']) ?></div>
+                                 <div><?= htmlspecialchars($mascota['fechaFinal']) ?></div>
                                 <div><?= htmlspecialchars($mascota['fechaDefuncion']) ?></div>
-                                <div class="row--actions" onclick="event.stopPropagation()">
-                                    <a href="/mascotas/editar/<?= $mascota['nroRegistro'] ?>">✏️</a>
-                                    <a href="/mascotas/eliminar/<?= $mascota['nroRegistro'] ?>">❌</a>
-                                </div>
                             </div>
                         <?php endforeach; ?>
                     </div>

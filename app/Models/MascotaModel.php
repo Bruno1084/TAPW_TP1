@@ -22,7 +22,7 @@ class MascotaModel extends Model
     public function getAmosFromMascota(int $idMascota)
     {
         return $this->db->table('amo_mascota am')
-            ->select('a.*, am.fechaInicio, am.fechaFinal, am.motivoFin')
+            ->select('a.*, am.fechaInicio, am.fechaFinal, am.motivoFin, am.id')
             ->join('amos a', 'am.idAmo = a.id')
             ->where('am.idMascota', $idMascota)
             ->orderBy('am.fechaInicio', 'ASC')
@@ -49,7 +49,7 @@ class MascotaModel extends Model
         $amo_mascotaModel = new Amo_MascotaModel();
 
         $veterinario_mascotaModel->where('idMascota', $id)->delete();
-        $amo_mascotaModel->where('idMascota', $id);
+        $amo_mascotaModel->where('idMascota', $id)->delete();
         $this->delete($id);
     }
 }

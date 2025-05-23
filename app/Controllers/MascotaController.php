@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Amo_MascotaModel;
 use App\Models\MascotaModel;
 use App\Models\Veterinario_MascotaModel;
+use App\Types\Amo_Mascota;
 use App\Types\Mascota;
 use InvalidArgumentException;
 
@@ -148,5 +149,57 @@ class MascotaController extends BaseController
         $mascotaModel->deleteMascota($id);
 
         return redirect()->to('/mascotas');
+    }
+
+
+    // Mascota Adoptar
+    public function getEditAdoptar($idAdoptar)
+    {
+        $amo_mascotaModel = new Amo_MascotaModel();
+        $data = [
+            'adoptar' => $amo_mascotaModel->find($idAdoptar)
+        ];
+
+        return view('amos/editar_adoptar', $data);
+    }
+
+    public function postEditAdoptar()
+    {
+        $amo_mascotaModel = new Amo_MascotaModel();
+
+        try {
+            $newAmo_Mascota = new Amo_Mascota(
+                $this->request->getPost('idAdoptar'),
+                $this->request->getPost('idAmo'),
+                $this->request->getPost('idMascota'),
+                $this->request->getPost('fechaInicio'),
+                $this->request->getPost('fechaFinal'),
+                $this->request->getPost('motivoFin')
+            );
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
+
+        $data = [
+            'idAmo' => $newAmo_Mascota->getIdAmo(),
+            'idMascota' => $newAmo_Mascota->getIdMascota(),
+            'fechaInicio' => $newAmo_Mascota->getFechaInicio(),
+            'fechaFinal' => $newAmo_Mascota->getFechaFinal(),
+            'motivoFin' => $newAmo_Mascota->getMotivoFin(),
+        ];
+
+        if (!$amo_mascotaModel->update($newAmo_Mascota->getId(), $data)) {
+            return redirect()->back()->withInput()->with('errors', $amo_mascotaModel->errors());
+        }
+
+        return redirect()->to('/mascotas/' . $newAmo_Mascota->getIdAmo());
+    }
+
+    public function deleteAdoptar($idAdoptar)
+    {
+        $amo_mascotaModel = new Amo_MascotaModel();
+        $amo_mascotaModel->delete($idAdoptar);
+
+        return view('mascotas/index');
     }
 }

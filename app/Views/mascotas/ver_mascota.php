@@ -89,8 +89,8 @@
                                 <div><?= htmlspecialchars($amo['telefono']) ?></div>
                                 <div><?= htmlspecialchars($amo['fechaAlta']) ?></div>
                                 <div class="row--actions" onclick="event.stopPropagation()">
-                                    <a href="/amos/editar/<?= $amo['id'] ?>">✏️</a>
-                                    <a href="/amos/eliminar/<?= $amo['id'] ?>">❌</a>
+                                    <a href="/mascotas/adoptar/editar/<?= $amo['id'] ?>">✏️</a>
+                                    <a href="/mascotas/adoptar/eliminar/<?= $amo['id'] ?>">❌</a>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -114,7 +114,6 @@
                             <div>Dirección</div>
                             <div>Teléfono</div>
                             <div>Fecha de Alta</div>
-                            <div>Opciones</div>
                         </div>
 
                         <!-- Filas -->
@@ -126,10 +125,6 @@
                                 <div><?= htmlspecialchars($amo['direccion']) ?></div>
                                 <div><?= htmlspecialchars($amo['telefono']) ?></div>
                                 <div><?= htmlspecialchars($amo['fechaAlta']) ?></div>
-                                <div class="row--actions" onclick="event.stopPropagation()">
-                                    <a href="/amos/editar/<?= $amo['id'] ?>">✏️</a>
-                                    <a href="/amos/eliminar/<?= $amo['id'] ?>">❌</a>
-                                </div>
                             </div>
                         <?php endforeach; ?>
                     </div>

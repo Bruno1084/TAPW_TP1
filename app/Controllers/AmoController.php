@@ -207,7 +207,7 @@ class AmoController extends BaseController
                 $this->request->getPost('idAdoptar'),
                 $this->request->getPost('idAmo'),
                 $this->request->getPost('idMascota'),
-                $this->request->getPost('fechaIngreso'),
+                $this->request->getPost('fechaInicio'),
                 $this->request->getPost('fechaFinal'),
                 $this->request->getPost('motivoFin')
             );
@@ -218,7 +218,7 @@ class AmoController extends BaseController
         $data = [
             'idAmo' => $newAmo_Mascota->getIdAmo(),
             'idMascota' => $newAmo_Mascota->getIdMascota(),
-            'fechaIngreso' => $newAmo_Mascota->getFechaIngreso(),
+            'fechaInicio' => $newAmo_Mascota->getFechaInicio(),
             'fechaFinal' => $newAmo_Mascota->getFechaFinal(),
             'motivoFin' => $newAmo_Mascota->getMotivoFin(),
         ];
@@ -230,8 +230,11 @@ class AmoController extends BaseController
         return redirect()->to('/amos/' . $newAmo_Mascota->getIdAmo());
     }
 
+    public function deleteAdoptar($idAdoptar)
+    {
+        $amo_mascotaModel = new Amo_MascotaModel();
+        $amo_mascotaModel->delete($idAdoptar);
 
-
-
-    public function deleteAdoptar($id) {}
+        return view('amos/index');
+    }
 }

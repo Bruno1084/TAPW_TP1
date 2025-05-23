@@ -9,16 +9,16 @@ class Amo_Mascota
     private int $id;
     private int $idAmo;
     private int $idMascota;
-    private DateTime $fechaIngreso;
+    private DateTime $fechaInicio;
     private ?DateTime $fechaFinal;
     private ?string $motivoFin;
 
-    public function __construct(int $id, int $idAmo, int $idMascota, $fechaIngreso, $fechaFinal = null, ?string $motivoFin = null)
+    public function __construct(int $id, int $idAmo, int $idMascota, $fechaInicio, $fechaFinal = null, ?string $motivoFin = null)
     {
         $this->setId($id);
         $this->setIdAmo($idAmo);
         $this->setIdMascota($idMascota);
-        $this->setFechaIngreso($fechaIngreso);
+        $this->setFechaInicio($fechaInicio);
         $this->setFechaFinal($fechaFinal);
         $this->setMotivoFin($motivoFin);
     }
@@ -60,17 +60,17 @@ class Amo_Mascota
         }
     }
 
-    public function getFechaIngreso(): string
+    public function getFechaInicio(): string
     {
-        return $this->fechaIngreso->format('Y-m-d');
+        return $this->fechaInicio->format('Y-m-d');
     }
 
-    public function setFechaIngreso($fecha): void
+    public function setFechaInicio($fecha): void
     {
         if ($fecha instanceof DateTime) {
-            $this->fechaIngreso = $fecha;
+            $this->fechaInicio = $fecha;
         } else {
-            $this->fechaIngreso = new DateTime($fecha);
+            $this->fechaInicio = new DateTime($fecha);
         }
     }
 

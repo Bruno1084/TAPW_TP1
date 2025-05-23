@@ -27,7 +27,7 @@ $routes->post('/amos/adoptar', 'AmoController::postAdoptar');
 
 $routes->get('/amos/adoptar/editar/(:num)', 'AmoController::getEditAdoptar/$1');
 $routes->post('/amos/adoptar/editar/(:num)', 'AmoController::postEditAdoptar/$1');
-$routes->post('/amos/adoptar/eliminar', 'AmoController::deleteAdoptar/$1');
+$routes->post('/amos/adoptar/eliminar/(:num)', 'AmoController::deleteAdoptar/$1');
 
 
 // Mascota - Routes
@@ -41,6 +41,10 @@ $routes->get('/mascotas/editar/(:num)', 'MascotaController::getEdit/$1');
 $routes->post('/mascotas/editar/(:num)', 'MascotaController::postEdit/$1');
 // Mascota - Delete
 $routes->get('/mascotas/eliminar/(:num)', 'MascotaController::getDelete/$1');
+// Mascota - Adoptar
+$routes->get('/mascotas/adoptar/editar/(:num)', 'MascotaController::getEditAdoptar/$1');
+$routes->post('/mascotas/adoptar/editar/(:num)', 'MascotaController::postEditAdoptar/$1');
+$routes->post('/mascotas/adoptar/eliminar/(:num)', 'MascotaController::deleteAdoptar/$1');
 
 
 // Veterinario - Routes
