@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit">Registrar Adopción</button>
+                        <button type="submit">Registrar Atención</button>
                     </div>
                 </form>
             </div>
